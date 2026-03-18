@@ -9,7 +9,16 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f9fafb; }
         
-        /* Header & Hero Section */
+        /* Navbar (Thanh Menu Đỉnh Cao) */
+        header { background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1000px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: bold; color: #1877f2; text-decoration: none; }
+        .nav-links { list-style: none; display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: #555; font-weight: 600; transition: color 0.3s; }
+        .nav-links a:hover { color: #1877f2; }
+        .btn-login { background-color: #1877f2; color: white !important; padding: 8px 15px; border-radius: 5px; }
+
+        /* Hero Section */
         .hero { background: linear-gradient(135deg, #1877f2 0%, #0056b3 100%); color: white; padding: 60px 20px; text-align: center; }
         .hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
         .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 30px auto; opacity: 0.9; }
@@ -18,13 +27,13 @@
         .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
         @media (max-width: 768px) { .container { grid-template-columns: 1fr; } }
         
-        /* Lợi ích khóa học (7P - Product) */
+        /* Lợi ích khóa học */
         .benefits h2 { color: #1877f2; margin-bottom: 20px; }
         .benefits ul { list-style: none; }
         .benefits li { margin-bottom: 15px; font-size: 1.1rem; display: flex; align-items: center; }
         .benefits li::before { content: '✅'; margin-right: 10px; }
         
-        /* Form Box (Capture Data) */
+        /* Form Box */
         .form-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
         .form-box h3 { text-align: center; margin-bottom: 20px; color: #333; }
         .form-group { margin-bottom: 20px; }
@@ -34,11 +43,23 @@
         button { background-color: #ff5722; color: white; padding: 15px 20px; border: none; border-radius: 6px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; text-transform: uppercase; transition: background 0.3s; }
         button:hover { background-color: #e64a19; }
         
-        /* Footer */
         footer { text-align: center; padding: 20px; color: #666; font-size: 14px; margin-top: 40px; }
     </style>
 </head>
 <body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">ToeicHolic</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="test.html">Test Năng Lực</a></li>
+                <li><a href="courses.html">Khóa Học</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="login.html" class="btn-login">Đăng Nhập</a></li>
+            </ul>
+        </div>
+    </header>
 
     <div class="hero">
         <h1>Bí Kíp Đạt TOEIC 800+ Dành Cho Người Mất Gốc</h1>
@@ -58,10 +79,9 @@
 
         <div class="form-box">
             <h3>Đăng Ký Nhận Ebook Miễn Phí</h3>
-            
             <form action="https://formspree.io/f/xwvrwgnp" method="POST">
-                
                 <input type="hidden" name="_next" value="https://toeicholic.id.vn/thanks.html">
+                <input type="hidden" name="Nguồn" value="Form Trang Chủ">
                 
                 <div class="form-group">
                     <label for="name">Họ và Tên:</label>
@@ -71,11 +91,6 @@
                 <div class="form-group">
                     <label for="email">Email nhận tài liệu:</label>
                     <input type="email" id="email" name="email" required placeholder="Nhập email...">
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">Số điện thoại (Tùy chọn):</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Để lại SĐT để nhận tư vấn Zalo...">
                 </div>
 
                 <button type="submit">Nhận Tài Liệu Ngay 🚀</button>
