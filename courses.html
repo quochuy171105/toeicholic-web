@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khóa Học TOEIC | ToeicHolic</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f9fafb; color: #333; }
+        
+        /* Navbar Đồng Bộ */
+        header { background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1000px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: bold; color: #1877f2; text-decoration: none; }
+        .nav-links { list-style: none; display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: #555; font-weight: 600; transition: color 0.3s; }
+        .nav-links a:hover { color: #1877f2; }
+        .btn-login { background-color: #1877f2; color: white !important; padding: 8px 15px; border-radius: 5px; }
+
+        /* Giao diện Khóa Học */
+        .page-header { background: #1877f2; color: white; text-align: center; padding: 40px 20px; }
+        .courses-grid { max-width: 1000px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .course-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s; border: 1px solid #eee; }
+        .course-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .course-img { height: 200px; background: #ddd; display: flex; align-items: center; justify-content: center; color: #888; font-weight: bold; }
+        .course-content { padding: 25px; }
+        .course-title { font-size: 1.2rem; color: #1877f2; margin-bottom: 10px; }
+        .course-desc { color: #666; font-size: 0.95rem; margin-bottom: 20px; min-height: 60px; }
+        .course-price { font-size: 1.5rem; font-weight: bold; color: #e53935; margin-bottom: 20px; display: block; }
+        
+        .btn-buy { display: block; text-align: center; background: #ff5722; color: white; text-decoration: none; padding: 12px; border-radius: 6px; font-weight: bold; transition: 0.3s; }
+        .btn-buy:hover { background: #e64a19; }
+        
+        footer { text-align: center; padding: 20px; color: #666; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">ToeicHolic</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="test.html">Test Năng Lực</a></li>
+                <li><a href="courses.html">Khóa Học</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="login.html" class="btn-login">Đăng Nhập</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <h1>Lộ Trình Học Tập ToeicHolic</h1>
+        <p>Chọn khóa học phù hợp với mục tiêu của bạn</p>
+    </div>
+
+    <div class="courses-grid">
+        <div class="course-card">
+            <div class="course-img">[Ảnh Khóa Lấy Gốc]</div>
+            <div class="course-content">
+                <h3 class="course-title">TOEIC 500+ Lấy Lại Căn Bản</h3>
+                <p class="course-desc">Dành cho người mất gốc hoàn toàn. Củng cố ngữ pháp và 600 từ vựng cốt lõi trong 2 tháng.</p>
+                <span class="course-price">Miễn Phí (Ebook)</span>
+                <a href="index.html" class="btn-buy" style="background:#1877f2;">Nhận Miễn Phí</a>
+            </div>
+        </div>
+
+        <div class="course-card">
+            <div class="course-img">[Ảnh Khóa Cấp Tốc]</div>
+            <div class="course-content">
+                <h3 class="course-title">TOEIC 800+ Cấp Tốc 30 Ngày</h3>
+                <p class="course-desc">Luyện đề thực chiến, mẹo tránh bẫy Part 5, 7. Tặng kèm tài khoản làm test thi thử không giới hạn.</p>
+                <span class="course-price">299.000 VNĐ</span>
+                <a href="thanks.html" class="btn-buy">Đăng Ký Ngay</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 ToeicHolic. Đồ án môn học Marketing & Sales Automation.</p>
+    </footer>
+
+</body>
+</html>
