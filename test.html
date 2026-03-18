@@ -3,24 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Năng Lực TOEIC Đầu Vào</title>
+    <title>Test Năng Lực TOEIC Đầu Vào | ToeicHolic</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; color: #333; padding: 20px; }
-        .quiz-container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        /* CSS Reset & Cơ bản */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; color: #333; }
+        
+        /* Navbar (Đồng bộ với trang chủ) */
+        header { background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1000px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: bold; color: #1877f2; text-decoration: none; }
+        .nav-links { list-style: none; display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: #555; font-weight: 600; transition: color 0.3s; }
+        .nav-links a:hover { color: #1877f2; }
+        .btn-login { background-color: #1877f2; color: white !important; padding: 8px 15px; border-radius: 5px; }
+
+        /* Giao diện bài Test */
+        .quiz-container { max-width: 600px; margin: 40px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         h2 { color: #1877f2; text-align: center; border-bottom: 2px solid #eee; padding-bottom: 10px; }
         .question { margin: 20px 0; font-weight: bold; font-size: 1.1rem; }
         .options label { display: block; background: #f9f9f9; padding: 12px; margin-bottom: 8px; border-radius: 5px; cursor: pointer; border: 1px solid #ddd; transition: 0.3s; }
         .options label:hover { background: #e7f3ff; border-color: #1877f2; }
         
-        /* Giao diện Form ẩn lấy Email (Lead Gate) */
+        /* Form ẩn lấy Email */
         #lead-gate { display: none; margin-top: 30px; padding: 20px; border: 2px dashed #ff5722; border-radius: 8px; background: #fff3e0; }
         .form-group { margin-bottom: 15px; }
         input[type="text"], input[type="email"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
         button { background: #ff5722; color: white; padding: 12px 20px; width: 100%; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; }
         .btn-submit-quiz { background: #1877f2; margin-top: 20px; }
+        
+        footer { text-align: center; padding: 20px; color: #666; font-size: 14px; margin-top: 40px; }
     </style>
 </head>
 <body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">ToeicHolic</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="test.html">Test Năng Lực</a></li>
+                <li><a href="courses.html">Khóa Học</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="login.html" class="btn-login">Đăng Nhập</a></li>
+            </ul>
+        </div>
+    </header>
 
     <div class="quiz-container">
         <h2>Kiểm Tra Trình Độ TOEIC (Mini Test)</h2>
@@ -70,8 +98,11 @@
         </div>
     </div>
 
+    <footer>
+        <p>© 2026 ToeicHolic. Đồ án môn học Marketing & Sales Automation.</p>
+    </footer>
+
     <script>
-        // Dùng JavaScript đơn giản để ẩn bài test và hiện form bắt Email
         function showLeadGate() {
             document.getElementById('quiz-box').style.display = 'none';
             document.getElementById('lead-gate').style.display = 'block';
