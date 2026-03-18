@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Năng Lực TOEIC Đầu Vào</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; color: #333; padding: 20px; }
+        .quiz-container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h2 { color: #1877f2; text-align: center; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .question { margin: 20px 0; font-weight: bold; font-size: 1.1rem; }
+        .options label { display: block; background: #f9f9f9; padding: 12px; margin-bottom: 8px; border-radius: 5px; cursor: pointer; border: 1px solid #ddd; transition: 0.3s; }
+        .options label:hover { background: #e7f3ff; border-color: #1877f2; }
+        
+        /* Giao diện Form ẩn lấy Email (Lead Gate) */
+        #lead-gate { display: none; margin-top: 30px; padding: 20px; border: 2px dashed #ff5722; border-radius: 8px; background: #fff3e0; }
+        .form-group { margin-bottom: 15px; }
+        input[type="text"], input[type="email"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        button { background: #ff5722; color: white; padding: 12px 20px; width: 100%; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .btn-submit-quiz { background: #1877f2; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h2>Kiểm Tra Trình Độ TOEIC (Mini Test)</h2>
+        <p style="text-align:center; color:#666;">Hoàn thành 3 câu hỏi dưới đây để hệ thống đánh giá năng lực của bạn.</p>
+
+        <div id="quiz-box">
+            <div class="question">1. The manager requested that all staff _______ the meeting.</div>
+            <div class="options">
+                <label><input type="radio" name="q1" value="A"> A. attend</label>
+                <label><input type="radio" name="q1" value="B"> B. attends</label>
+                <label><input type="radio" name="q1" value="C"> C. attending</label>
+            </div>
+
+            <div class="question">2. Please review the document _______ signing it.</div>
+            <div class="options">
+                <label><input type="radio" name="q2" value="A"> A. after</label>
+                <label><input type="radio" name="q2" value="B"> B. before</label>
+                <label><input type="radio" name="q2" value="C"> C. while</label>
+            </div>
+
+            <div class="question">3. We are looking forward _______ from you soon.</div>
+            <div class="options">
+                <label><input type="radio" name="q3" value="A"> A. to hear</label>
+                <label><input type="radio" name="q3" value="B"> B. hearing</label>
+                <label><input type="radio" name="q3" value="C"> C. to hearing</label>
+            </div>
+
+            <button class="btn-submit-quiz" onclick="showLeadGate()">Nộp Bài & Xem Kết Quả</button>
+        </div>
+
+        <div id="lead-gate">
+            <h3 style="color:#ff5722; text-align:center;">Phân tích kết quả đã sẵn sàng!</h3>
+            <p style="text-align:center; font-size:14px;">Vui lòng nhập email để nhận bảng điểm chi tiết và lộ trình học cá nhân hóa.</p>
+            
+            <form action="https://formspree.io/f/xwvrwgnp" method="POST">
+                <input type="hidden" name="_next" value="https://toeicholic.id.vn/thanks.html">
+                <input type="hidden" name="Nguồn" value="Làm Test Năng Lực">
+                
+                <div class="form-group">
+                    <input type="text" name="name" required placeholder="Họ và Tên của bạn...">
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" required placeholder="Email nhận kết quả...">
+                </div>
+                <button type="submit">Gửi Kết Quả Cho Tôi Ngay 🚀</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Dùng JavaScript đơn giản để ẩn bài test và hiện form bắt Email
+        function showLeadGate() {
+            document.getElementById('quiz-box').style.display = 'none';
+            document.getElementById('lead-gate').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
