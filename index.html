@@ -3,43 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToeicHolic - Lộ trình chinh phục TOEIC</title>
+    <title>ToeicHolic | Phá Đảo TOEIC 800+ Trong 30 Ngày</title>
     <style>
-        /* CSS đắp giao diện cơ bản cho chuẩn dân làm Marketing */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; background-color: #f0f2f5; color: #333; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); max-width: 500px; width: 90%; text-align: center; }
-        h1 { color: #1877f2; margin-bottom: 10px; }
-        p.subtitle { color: #666; margin-bottom: 30px; font-size: 15px; }
-        .form-group { margin-bottom: 20px; text-align: left; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; }
-        input[type="text"], input[type="email"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 15px; transition: border-color 0.3s; }
+        /* CSS Reset & Cơ bản */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f9fafb; }
+        
+        /* Header & Hero Section */
+        .hero { background: linear-gradient(135deg, #1877f2 0%, #0056b3 100%); color: white; padding: 60px 20px; text-align: center; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 30px auto; opacity: 0.9; }
+        
+        /* Main Content Grid */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        @media (max-width: 768px) { .container { grid-template-columns: 1fr; } }
+        
+        /* Lợi ích khóa học (7P - Product) */
+        .benefits h2 { color: #1877f2; margin-bottom: 20px; }
+        .benefits ul { list-style: none; }
+        .benefits li { margin-bottom: 15px; font-size: 1.1rem; display: flex; align-items: center; }
+        .benefits li::before { content: '✅'; margin-right: 10px; }
+        
+        /* Form Box (Capture Data) */
+        .form-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .form-box h3 { text-align: center; margin-bottom: 20px; color: #333; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: #555;}
+        input[type="text"], input[type="email"], input[type="tel"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; }
         input[type="text"]:focus, input[type="email"]:focus { border-color: #1877f2; outline: none; }
-        button { background-color: #1877f2; color: white; padding: 14px 20px; border: none; border-radius: 6px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; transition: background-color 0.3s; }
-        button:hover { background-color: #166fe5; }
+        button { background-color: #ff5722; color: white; padding: 15px 20px; border: none; border-radius: 6px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; text-transform: uppercase; transition: background 0.3s; }
+        button:hover { background-color: #e64a19; }
+        
+        /* Footer */
+        footer { text-align: center; padding: 20px; color: #666; font-size: 14px; margin-top: 40px; }
     </style>
 </head>
 <body>
 
+    <div class="hero">
+        <h1>Bí Kíp Đạt TOEIC 800+ Dành Cho Người Mất Gốc</h1>
+        <p>Hệ thống tự động hóa lộ trình học. Nhận ngay bộ Ebook Độc Quyền và Lộ trình 30 ngày hoàn toàn miễn phí!</p>
+    </div>
+
     <div class="container">
-        <h1>🎉 ToeicHolic Sắp Ra Mắt!</h1>
-        <p class="subtitle">Hệ thống đang được nâng cấp. Để lại Email để nhận ngay bộ tài liệu "Phá đảo TOEIC 800+" miễn phí ngay khi web hoạt động!</p>
-
-        <form action="https://formspree.io/f/xwvrwgnp" method="POST">
-            
-            <div class="form-group">
-                <label for="name">Họ và Tên của bạn:</label>
-                <input type="text" id="name" name="name" required placeholder="Nhập họ tên...">
-            </div>
-
-            <div class="form-group">
-                <label for="email">Địa chỉ Email:</label>
-                <input type="email" id="email" name="email" required placeholder="Nhập email nhận tài liệu...">
-            </div>
-
-            <button type="submit">Nhận Tài Liệu Ngay 🚀</button>
-
-        </form>
+        <div class="benefits">
+            <h2>Bạn sẽ nhận được gì?</h2>
+            <ul>
+                <li>Bộ 1000 từ vựng TOEIC cốt lõi thường gặp nhất.</li>
+                <li>Mẹo tránh bẫy Part 5 & Part 7 từ chuyên gia.</li>
+                <li>Lộ trình cá nhân hóa dựa trên trình độ hiện tại.</li>
+                <li>Hệ thống làm bài test Online báo điểm ngay.</li>
+            </ul>
         </div>
+
+        <div class="form-box">
+            <h3>Đăng Ký Nhận Ebook Miễn Phí</h3>
+            
+            <form action="https://formspree.io/f/xwvrwgnp" method="POST">
+                
+                <input type="hidden" name="_next" value="https://toeicholic.id.vn/thanks.html">
+                
+                <div class="form-group">
+                    <label for="name">Họ và Tên:</label>
+                    <input type="text" id="name" name="name" required placeholder="Nhập họ tên...">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email nhận tài liệu:</label>
+                    <input type="email" id="email" name="email" required placeholder="Nhập email...">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Số điện thoại (Tùy chọn):</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Để lại SĐT để nhận tư vấn Zalo...">
+                </div>
+
+                <button type="submit">Nhận Tài Liệu Ngay 🚀</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 ToeicHolic. Đồ án môn học Marketing & Sales Automation.</p>
+    </footer>
 
 </body>
 </html>
