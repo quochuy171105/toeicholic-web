@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập | ToeicHolic</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        
+        .login-container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
+        .logo { font-size: 28px; font-weight: bold; color: #1877f2; text-decoration: none; margin-bottom: 10px; display: block; }
+        p { color: #666; margin-bottom: 25px; font-size: 14px; }
+        
+        .form-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; color: #333; }
+        input[type="email"], input[type="password"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 15px; }
+        input:focus { border-color: #1877f2; outline: none; }
+        
+        button { background: #1877f2; color: white; width: 100%; padding: 12px; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-bottom: 15px; }
+        button:hover { background: #166fe5; }
+        
+        .back-link { color: #1877f2; text-decoration: none; font-size: 14px; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <a href="index.html" class="logo">ToeicHolic</a>
+        <p>Hệ thống học tập tự động hóa</p>
+
+        <form action="index.html" method="GET">
+            <div class="form-group">
+                <label>Email đăng nhập:</label>
+                <input type="email" required placeholder="example@gmail.com">
+            </div>
+            <div class="form-group">
+                <label>Mật khẩu:</label>
+                <input type="password" required placeholder="••••••••">
+            </div>
+            <button type="submit">Đăng Nhập Khu Vực Học Tập</button>
+        </form>
+
+        <a href="index.html" class="back-link">← Trở về Trang Chủ</a>
+    </div>
+
+</body>
+</html>
