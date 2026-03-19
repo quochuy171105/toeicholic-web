@@ -7,26 +7,23 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f9fafb; color: #333; line-height: 1.6; }
-        
         header { background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
         .nav-container { max-width: 1000px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 24px; font-weight: bold; color: #1877f2; text-decoration: none; }
         .nav-links { list-style: none; display: flex; gap: 20px; }
         .nav-links a { text-decoration: none; color: #555; font-weight: 600; }
         
-        .container { max-width: 800px; margin: 40px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .post-title { font-size: 2rem; color: #1877f2; margin-bottom: 20px; }
+        .blog-header { background: #1877f2; color: white; text-align: center; padding: 40px 20px; }
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         
-        /* Hiệu ứng làm mờ bài viết */
-        .content-preview { position: relative; overflow: hidden; max-height: 200px; }
-        .content-preview::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1)); }
+        .post-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .post-img { height: 200px; background-size: cover; background-position: center; }
+        .post-content { padding: 25px; }
+        .post-title { font-size: 1.3rem; color: #333; margin-bottom: 10px; font-weight: bold; }
+        .post-excerpt { color: #666; font-size: 14px; margin-bottom: 15px; }
+        .btn-read { display: inline-block; color: #ff5722; font-weight: bold; cursor: pointer; border: none; background: none; font-size: 15px; }
         
-        /* Bài viết đầy đủ (Bị ẩn lúc đầu) */
-        .full-content { display: none; margin-top: 20px; }
-
-        .btn-read-more { display: block; width: 100%; text-align: center; padding: 15px; background: #ff5722; color: white; font-weight: bold; font-size: 16px; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px; }
-
-        /* Popup Form Overlay */
+        /* Popup Overlay */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; justify-content: center; align-items: center; }
         .modal-box { background: white; padding: 30px; border-radius: 10px; width: 90%; max-width: 400px; text-align: center; }
         .modal-box input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; }
@@ -47,69 +44,73 @@
         </div>
     </header>
 
+    <div class="blog-header">
+        <h1>Góc Chia Sẻ Kiến Thức</h1>
+        <p>Cập nhật tài liệu và mẹo thi mới nhất</p>
+    </div>
+
     <div class="container">
-        <h1 class="post-title">Cách tránh bẫy Part 5 TOEIC cực kỳ hiệu quả</h1>
-        
-        <div class="content-preview" id="previewArea">
-            <p>Part 5 luôn là phần gỡ điểm nhưng cũng dễ mất điểm nhất nếu bạn không nắm vững 3 quy tắc ngữ pháp cốt lõi này. Rất nhiều bạn học vẹt từ vựng nhưng khi lắp vào câu lại chọn sai từ loại (Danh - Động - Tính - Trạng).</p>
-            <p>Theo thống kê của ETS, có đến 40% câu hỏi Part 5 rơi vào bẫy từ loại. Dưới đây là bí kíp giúp bạn giải quyết gọn gàng dạng toán này chỉ trong 5 giây mỗi câu...</p>
+        <div class="post-card">
+            <div class="post-img" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+            <div class="post-content">
+                <div class="post-title">Cách tránh bẫy Part 5 TOEIC</div>
+                <div class="post-excerpt">Part 5 luôn là phần gỡ điểm nhưng cũng dễ mất điểm nhất nếu bạn không nắm vững 3 quy tắc ngữ pháp cốt lõi này...</div>
+                <button class="btn-read" onclick="openModal('post-part5.html')">Đọc tiếp →</button>
+            </div>
         </div>
 
-        <button class="btn-read-more" id="btnUnlock" onclick="openModal()">🔓 Mở Khóa Đọc Tiếp Toàn Bộ Bài Viết</button>
-
-        <div class="full-content" id="secretContent">
-            <h3 style="color:#d32f2f; margin-top:20px;">Bí kíp 1: Xác định vị trí từ loại</h3>
-            <p>Nếu chỗ trống nằm trước Danh từ, hãy mạnh dạn điền Tính từ. Nếu chỗ trống nằm sau Động từ thường, chắc chắn đó là Trạng từ. Bạn không cần dịch nghĩa cả câu, chỉ cần nhìn từ đằng trước và đằng sau chỗ trống.</p>
-            <p><strong>Ví dụ:</strong> He runs _______ (quick/quickly). Vì "runs" là động từ, ta chọn "quickly".</p>
-            <br>
-            <h3 style="color:#d32f2f;">Bí kíp 2: Dấu hiệu nhận biết đuôi từ</h3>
-            <p>Đuôi -tion, -ment, -ness luôn là Danh từ. Đuôi -ive, -able, -ful luôn là Tính từ. Hãy học thuộc bảng đuôi từ này, tốc độ làm Part 5 của bạn sẽ tăng gấp đôi!</p>
+        <div class="post-card">
+            <div class="post-img" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+            <div class="post-content">
+                <div class="post-title">600 Từ vựng TOEIC thường gặp</div>
+                <div class="post-excerpt">Đừng học dàn trải. Hãy tập trung vào danh sách 600 từ vựng cốt lõi do ETS thống kê để tiết kiệm 50% thời gian...</div>
+                <button class="btn-read" onclick="openModal('post-tuvung.html')">Đọc tiếp →</button>
+            </div>
         </div>
     </div>
 
     <div class="modal-overlay" id="leadModal">
         <div class="modal-box">
-            <h3 style="color:#1877f2; margin-bottom:15px;">Mở Khóa Bài Viết Ngay</h3>
-            <p style="font-size:14px; color:#666; margin-bottom:20px;">Vui lòng để lại email để đọc phần tiếp theo và nhận thông báo khi có bài viết mới.</p>
-            
+            <h3 style="color:#1877f2; margin-bottom:15px;">Mở Khóa Bài Viết</h3>
+            <p style="font-size:14px; color:#666; margin-bottom:20px;">Để lại email để đọc toàn bộ bài viết này.</p>
             <form id="blogForm">
-                <input type="hidden" name="Nguồn" value="Mở khóa bài viết Blog">
-                <input type="text" name="name" required placeholder="Tên của bạn...">
+                <input type="hidden" name="Nguồn" value="Đọc Blog">
                 <input type="email" name="email" required placeholder="Email của bạn...">
-                <button type="submit" id="blogSubmitBtn">Mở Khóa Ngay 🔓</button>
+                <button type="submit" id="blogSubmitBtn">Đọc Bài Viết Ngay 🔓</button>
             </form>
-            <p style="font-size:12px; color:#999; margin-top:10px; cursor:pointer;" onclick="closeModal()">Bỏ qua (Quay lại)</p>
+            <p style="font-size:12px; color:#999; margin-top:10px; cursor:pointer;" onclick="closeModal()">Đóng lại</p>
         </div>
     </div>
 
     <script>
-        function openModal() { document.getElementById('leadModal').style.display = 'flex'; }
+        let targetUrl = ""; // Biến lưu link trang bài viết sẽ chuyển tới
+
+        function openModal(url) { 
+            targetUrl = url; // Lưu lại link khi bấm "Đọc tiếp"
+            document.getElementById('leadModal').style.display = 'flex'; 
+        }
         function closeModal() { document.getElementById('leadModal').style.display = 'none'; }
 
-        // Xử lý Form bằng AJAX để mở khóa
         document.getElementById("blogForm").addEventListener("submit", function(event) {
             event.preventDefault();
             let btn = document.getElementById("blogSubmitBtn");
-            btn.innerHTML = "Đang mở khóa...";
+            btn.innerHTML = "Đang tải bài viết...";
+            btn.disabled = true;
             
             let formData = new FormData(this);
-            // THAY MÃ FORMSPREE CỦA BẠN VÀO ĐÂY
+            // NHỚ ĐỔI MÃ FORMSPREE CỦA BẠN VÀO ĐÂY
             fetch("https://formspree.io/f/xwvrwgnp", {
                 method: "POST",
                 body: formData,
                 headers: { 'Accept': 'application/json' }
             }).then(response => {
                 if (response.ok) {
-                    // Thành công: Đóng Popup, Ẩn phần làm mờ, Hiện bài viết full
-                    closeModal();
-                    document.getElementById('previewArea').style.maxHeight = 'none';
-                    document.getElementById('previewArea').style.setProperty('--after-display', 'none');
-                    document.getElementById('previewArea').className = ""; // Xóa class làm mờ
-                    document.getElementById('btnUnlock').style.display = 'none'; // Ẩn nút Read more
-                    document.getElementById('secretContent').style.display = 'block'; // Hiện bài viết
+                    // Cú chốt: Bắn data xong thì tự động chuyển trang sang bài viết đầy đủ
+                    window.location.href = targetUrl;
                 } else {
-                    alert("Có lỗi xảy ra, vui lòng thử lại!");
-                    btn.innerHTML = "Mở Khóa Ngay 🔓";
+                    alert("Lỗi! Vui lòng thử lại.");
+                    btn.innerHTML = "Đọc Bài Viết Ngay 🔓";
+                    btn.disabled = false;
                 }
             });
         });
