@@ -263,7 +263,6 @@
             targetUrl = url;
             const modal = document.getElementById('leadModal');
             modal.style.display = 'flex'; 
-            // Delay tí để tạo hiệu ứng mượt mà (Fade In)
             setTimeout(() => { modal.classList.add('show'); }, 10);
         }
 
@@ -271,7 +270,7 @@
         function closeModal() { 
             const modal = document.getElementById('leadModal');
             modal.classList.remove('show');
-            setTimeout(() => { modal.style.display = 'none'; }, 300); // Chờ hiệu ứng mờ xong mới ẩn
+            setTimeout(() => { modal.style.display = 'none'; }, 300);
         }
 
         // Đóng popup khi click ra ngoài khung trắng
@@ -280,9 +279,12 @@
             if (event.target == modal) { closeModal(); }
         }
 
-        // Xử lý Gửi Form Mở Khóa Bài Viết bằng AJAX
+        // 🌟 BẠN DÁN LINK WEBHOOK CỦA MAKE.COM VÀO DÒNG NÀY NHÉ 🌟
+        const makeWebhookUrl = "https://hook.eu1.make.com/7hsf3szs89su1h26yzkd2ga8zyql58mb";
+
+        // --- 1. XỬ LÝ FORM POPUP MỞ KHÓA BÀI VIẾT ---
         document.getElementById("blogForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Chặn tải lại trang
+            event.preventDefault(); // Phép thuật nằm ở đây: Chặn nhảy sang trang trắng!
             
             let btn = document.getElementById("blogSubmitBtn");
             let originalText = btn.innerHTML;
@@ -290,35 +292,43 @@
             btn.disabled = true;
             btn.style.opacity = "0.7";
             
-            let formData = new FormData(this);
-            
-            // Nhớ giữ nguyên mã formspree xwvrwgnp
-            fetch("https://hook.eu1.make.com/7hsf3szs89su1h26yzkd2ga8zyql58mb, {
+            fetch(makeWebhookUrl, {
                 method: "POST",
-                body: formData,
-                headers: { 'Accept': 'application/json' }
+                body: new FormData(this)
             }).then(response => {
-                if (response.ok) {
-                    // Chuyển hướng sang file html bài viết chi tiết
-                    window.location.href = targetUrl;
-                } else {
-                    alert("Có lỗi kết nối mạng. Vui lòng thử lại!");
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                    btn.style.opacity = "1";
-                }
+                // Data bay về Make xong thì tự động chuyển sang trang bài viết full
+                window.location.href = targetUrl;
             }).catch(error => {
                 alert("Lỗi hệ thống. Vui lòng thử lại sau.");
                 btn.innerHTML = originalText;
                 btn.disabled = false;
+                btn.style.opacity = "1";
             });
         });
 
-        // Xử lý Nút gửi form bên Sidebar (Cột phải)
-        document.getElementById("sidebarForm").addEventListener("submit", function() {
+        // --- 2. XỬ LÝ FORM NHẬN SÁCH BÊN CỘT PHẢI (SIDEBAR) ---
+        document.getElementById("sidebarForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Chặn nhảy sang trang trắng
+            
             let btn = document.getElementById("sidebarBtn");
-            btn.innerHTML = "Đang xử lý...";
+            let originalText = btn.innerHTML;
+            btn.innerHTML = "Đang gửi tài liệu... ⏳";
+            btn.disabled = true;
+            
+            fetch(makeWebhookUrl, {
+                method: "POST",
+                body: new FormData(this)
+            }).then(response => {
+                // Data bay về Make xong thì đưa khách sang trang Cảm ơn để chốt sale khóa học
+                window.location.href = "thanks.html";
+            }).catch(error => {
+                alert("Lỗi kết nối. Vui lòng thử lại.");
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
         });
     </script>
+</body>
+</html>
 </body>
 </html>
