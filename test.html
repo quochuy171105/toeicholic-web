@@ -5,34 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Năng Lực TOEIC Đầu Vào | ToeicHolic</title>
     <style>
-        /* CSS Reset & Cơ bản */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; color: #333; }
         
-        /* Navbar (Đồng bộ với trang chủ) */
+        /* Navbar */
         header { background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
         .nav-container { max-width: 1000px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 24px; font-weight: bold; color: #1877f2; text-decoration: none; }
         .nav-links { list-style: none; display: flex; gap: 20px; }
-        .nav-links a { text-decoration: none; color: #555; font-weight: 600; transition: color 0.3s; }
-        .nav-links a:hover { color: #1877f2; }
+        .nav-links a { text-decoration: none; color: #555; font-weight: 600; }
         .btn-login { background-color: #1877f2; color: white !important; padding: 8px 15px; border-radius: 5px; }
 
-        /* Giao diện bài Test */
         .quiz-container { max-width: 600px; margin: 40px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         h2 { color: #1877f2; text-align: center; border-bottom: 2px solid #eee; padding-bottom: 10px; }
         .question { margin: 20px 0; font-weight: bold; font-size: 1.1rem; }
-        .options label { display: block; background: #f9f9f9; padding: 12px; margin-bottom: 8px; border-radius: 5px; cursor: pointer; border: 1px solid #ddd; transition: 0.3s; }
-        .options label:hover { background: #e7f3ff; border-color: #1877f2; }
+        .options label { display: block; background: #f9f9f9; padding: 12px; margin-bottom: 8px; border-radius: 5px; cursor: pointer; border: 1px solid #ddd; }
         
-        /* Form ẩn lấy Email */
-        #lead-gate { display: none; margin-top: 30px; padding: 20px; border: 2px dashed #ff5722; border-radius: 8px; background: #fff3e0; }
-        .form-group { margin-bottom: 15px; }
-        input[type="text"], input[type="email"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-        button { background: #ff5722; color: white; padding: 12px 20px; width: 100%; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; }
-        .btn-submit-quiz { background: #1877f2; margin-top: 20px; }
+        #lead-gate, #result-box { display: none; margin-top: 30px; padding: 20px; border-radius: 8px; text-align: center; }
+        #lead-gate { border: 2px dashed #ff5722; background: #fff3e0; }
+        #result-box { border: 2px solid #4CAF50; background: #e8f5e9; }
         
-        footer { text-align: center; padding: 20px; color: #666; font-size: 14px; margin-top: 40px; }
+        input[type="text"], input[type="email"] { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        button { background: #ff5722; color: white; padding: 12px 20px; width: 100%; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        .score-text { font-size: 28px; color: #d32f2f; font-weight: bold; margin: 15px 0; }
     </style>
 </head>
 <body>
@@ -45,68 +40,98 @@
                 <li><a href="test.html">Test Năng Lực</a></li>
                 <li><a href="courses.html">Khóa Học</a></li>
                 <li><a href="blog.html">Blog</a></li>
-                <li><a href="login.html" class="btn-login">Đăng Nhập</a></li>
             </ul>
         </div>
     </header>
 
     <div class="quiz-container">
         <h2>Kiểm Tra Trình Độ TOEIC (Mini Test)</h2>
-        <p style="text-align:center; color:#666;">Hoàn thành 3 câu hỏi dưới đây để hệ thống đánh giá năng lực của bạn.</p>
 
         <div id="quiz-box">
             <div class="question">1. The manager requested that all staff _______ the meeting.</div>
             <div class="options">
                 <label><input type="radio" name="q1" value="A"> A. attend</label>
                 <label><input type="radio" name="q1" value="B"> B. attends</label>
-                <label><input type="radio" name="q1" value="C"> C. attending</label>
             </div>
 
             <div class="question">2. Please review the document _______ signing it.</div>
             <div class="options">
                 <label><input type="radio" name="q2" value="A"> A. after</label>
                 <label><input type="radio" name="q2" value="B"> B. before</label>
-                <label><input type="radio" name="q2" value="C"> C. while</label>
             </div>
 
             <div class="question">3. We are looking forward _______ from you soon.</div>
             <div class="options">
                 <label><input type="radio" name="q3" value="A"> A. to hear</label>
-                <label><input type="radio" name="q3" value="B"> B. hearing</label>
                 <label><input type="radio" name="q3" value="C"> C. to hearing</label>
             </div>
 
-            <button class="btn-submit-quiz" onclick="showLeadGate()">Nộp Bài & Xem Kết Quả</button>
+            <button type="button" onclick="showLeadGate()" style="background:#1877f2; margin-top:20px;">Nộp Bài & Xem Kết Quả</button>
         </div>
 
         <div id="lead-gate">
-            <h3 style="color:#ff5722; text-align:center;">Phân tích kết quả đã sẵn sàng!</h3>
-            <p style="text-align:center; font-size:14px;">Vui lòng nhập email để nhận bảng điểm chi tiết và lộ trình học cá nhân hóa.</p>
-            
-            <form action="https://formspree.io/f/xwvrwgnp" method="POST">
-                <input type="hidden" name="_next" value="https://toeicholic.id.vn/thanks.html">
+            <h3 style="color:#ff5722;">Phân tích kết quả đã sẵn sàng!</h3>
+            <p>Nhập email để xem điểm số ngay lập tức.</p>
+            <form id="testForm">
                 <input type="hidden" name="Nguồn" value="Làm Test Năng Lực">
-                
-                <div class="form-group">
-                    <input type="text" name="name" required placeholder="Họ và Tên của bạn...">
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" required placeholder="Email nhận kết quả...">
-                </div>
-                <button type="submit">Gửi Kết Quả Cho Tôi Ngay 🚀</button>
+                <input type="text" name="name" required placeholder="Họ và Tên của bạn...">
+                <input type="email" name="email" required placeholder="Email nhận kết quả...">
+                <button type="submit" id="submitBtn">Gửi & Xem Điểm Ngay 🚀</button>
             </form>
+        </div>
+
+        <div id="result-box">
+            <h3 style="color:#2e7d32;">🎉 Phân tích thành công!</h3>
+            <div class="score-text">Bạn đúng <span id="score">0</span>/3 câu (<span id="percent">0</span>%)</div>
+            <p>Hệ thống đang gửi lộ trình chi tiết qua Email của bạn. Hãy kiểm tra hộp thư nhé!</p>
+            <a href="thanks.html" style="display:inline-block; margin-top:15px; color:#1877f2; font-weight:bold;">👉 Nâng cấp khóa học 299k tại đây</a>
         </div>
     </div>
 
-    <footer>
-        <p>© 2026 ToeicHolic. Đồ án môn học Marketing & Sales Automation.</p>
-    </footer>
-
     <script>
+        // 1. Hiện Form lấy Email
         function showLeadGate() {
             document.getElementById('quiz-box').style.display = 'none';
             document.getElementById('lead-gate').style.display = 'block';
         }
+
+        // 2. Chấm điểm & Xử lý Form bằng AJAX
+        document.getElementById("testForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Chặn không cho web tự động chuyển trang
+            
+            let btn = document.getElementById("submitBtn");
+            btn.innerHTML = "Đang xử lý...";
+            btn.disabled = true;
+
+            // Tính điểm
+            let score = 0;
+            if(document.querySelector('input[name="q1"]:checked')?.value === "A") score++;
+            if(document.querySelector('input[name="q2"]:checked')?.value === "B") score++;
+            if(document.querySelector('input[name="q3"]:checked')?.value === "C") score++;
+            
+            let percent = Math.round((score / 3) * 100);
+
+            // Gửi ngầm data về Formspree
+            let formData = new FormData(this);
+            // THAY MÃ FORMSPREE CỦA BẠN VÀO ĐÂY
+            fetch("https://formspree.io/f/xwvrwgnp", {
+                method: "POST",
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    // Thành công: Ẩn form, hiện điểm
+                    document.getElementById('lead-gate').style.display = 'none';
+                    document.getElementById('result-box').style.display = 'block';
+                    document.getElementById('score').innerText = score;
+                    document.getElementById('percent').innerText = percent;
+                } else {
+                    alert("Có lỗi xảy ra, vui lòng thử lại!");
+                    btn.innerHTML = "Gửi & Xem Điểm Ngay 🚀";
+                    btn.disabled = false;
+                }
+            });
+        });
     </script>
 </body>
 </html>
