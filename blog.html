@@ -3,46 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Chia Sẻ Kiến Thức TOEIC | ToeicHolic</title>
+    <title>Blog TOEIC | ToeicHolic</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f9fafb; color: #333; line-height: 1.6; }
         
-        /* Navbar Đồng Bộ */
         header { background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
         .nav-container { max-width: 1000px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 24px; font-weight: bold; color: #1877f2; text-decoration: none; }
         .nav-links { list-style: none; display: flex; gap: 20px; }
-        .nav-links a { text-decoration: none; color: #555; font-weight: 600; transition: color 0.3s; }
-        .nav-links a:hover { color: #1877f2; }
-        .btn-login { background-color: #1877f2; color: white !important; padding: 8px 15px; border-radius: 5px; }
+        .nav-links a { text-decoration: none; color: #555; font-weight: 600; }
+        
+        .container { max-width: 800px; margin: 40px auto; padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .post-title { font-size: 2rem; color: #1877f2; margin-bottom: 20px; }
+        
+        /* Hiệu ứng làm mờ bài viết */
+        .content-preview { position: relative; overflow: hidden; max-height: 200px; }
+        .content-preview::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 100px; background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1)); }
+        
+        /* Bài viết đầy đủ (Bị ẩn lúc đầu) */
+        .full-content { display: none; margin-top: 20px; }
 
-        /* Header của Blog */
-        .blog-header { background: #1877f2; color: white; text-align: center; padding: 40px 20px; }
-        
-        /* Layout chính */
-        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
-        @media (max-width: 768px) { .container { grid-template-columns: 1fr; } }
-        
-        /* Cột Trái: Danh sách Bài viết */
-        .post-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 30px; display: flex; flex-direction: column; }
-        .post-img { height: 250px; background: #ddd; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; color: #777; }
-        .post-content { padding: 25px; }
-        .post-tag { display: inline-block; background: #e7f3ff; color: #1877f2; padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-bottom: 10px; }
-        .post-title { font-size: 1.4rem; color: #333; margin-bottom: 10px; text-decoration: none; }
-        .post-title:hover { color: #1877f2; }
-        .post-excerpt { color: #666; margin-bottom: 15px; }
-        .read-more { color: #ff5722; font-weight: bold; text-decoration: none; }
-        
-        /* Cột Phải: Sidebar Bắt Lead */
-        .sidebar { position: sticky; top: 80px; }
-        .optin-box { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-top: 4px solid #1877f2; }
-        .optin-box h3 { margin-bottom: 15px; color: #333; }
-        .optin-box input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; }
-        .optin-box button { width: 100%; padding: 12px; background: #ff5722; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .optin-box button:hover { background: #e64a19; }
-        
-        footer { text-align: center; padding: 20px; color: #666; margin-top: 40px; }
+        .btn-read-more { display: block; width: 100%; text-align: center; padding: 15px; background: #ff5722; color: white; font-weight: bold; font-size: 16px; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px; }
+
+        /* Popup Form Overlay */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; justify-content: center; align-items: center; }
+        .modal-box { background: white; padding: 30px; border-radius: 10px; width: 90%; max-width: 400px; text-align: center; }
+        .modal-box input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        .modal-box button { width: 100%; padding: 12px; background: #1877f2; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -55,58 +43,76 @@
                 <li><a href="test.html">Test Năng Lực</a></li>
                 <li><a href="courses.html">Khóa Học</a></li>
                 <li><a href="blog.html">Blog</a></li>
-                <li><a href="login.html" class="btn-login">Đăng Nhập</a></li>
             </ul>
         </div>
     </header>
 
-    <div class="blog-header">
-        <h1>Góc Chia Sẻ Kiến Thức</h1>
-        <p>Cập nhật mẹo thi TOEIC và tài liệu mới nhất mỗi tuần</p>
-    </div>
-
     <div class="container">
-        <div class="main-content">
-            <div class="post-card">
-                <div class="post-img" style="background-image: url('https://via.placeholder.com/800x400');">Ảnh bài viết 1</div>
-                <div class="post-content">
-                    <span class="post-tag">Mẹo Thi Cử</span>
-                    <a href="#" class="post-title">Cách tránh bẫy Part 5 TOEIC cực kỳ hiệu quả</a>
-                    <p class="post-excerpt">Part 5 luôn là phần gỡ điểm nhưng cũng dễ mất điểm nhất nếu bạn không nắm vững 3 quy tắc ngữ pháp cốt lõi này...</p>
-                    <a href="#" class="read-more">Đọc tiếp →</a>
-                </div>
-            </div>
-
-            <div class="post-card">
-                <div class="post-img" style="background-image: url('https://via.placeholder.com/800x400');">Ảnh bài viết 2</div>
-                <div class="post-content">
-                    <span class="post-tag">Từ Vựng</span>
-                    <a href="#" class="post-title">Tổng hợp 600 từ vựng TOEIC thường xuất hiện nhất 2026</a>
-                    <p class="post-excerpt">Đừng học từ vựng dàn trải. Hãy tập trung vào danh sách 600 từ vựng do viện ETS thống kê để tiết kiệm 50% thời gian ôn luyện...</p>
-                    <a href="#" class="read-more">Đọc tiếp →</a>
-                </div>
-            </div>
+        <h1 class="post-title">Cách tránh bẫy Part 5 TOEIC cực kỳ hiệu quả</h1>
+        
+        <div class="content-preview" id="previewArea">
+            <p>Part 5 luôn là phần gỡ điểm nhưng cũng dễ mất điểm nhất nếu bạn không nắm vững 3 quy tắc ngữ pháp cốt lõi này. Rất nhiều bạn học vẹt từ vựng nhưng khi lắp vào câu lại chọn sai từ loại (Danh - Động - Tính - Trạng).</p>
+            <p>Theo thống kê của ETS, có đến 40% câu hỏi Part 5 rơi vào bẫy từ loại. Dưới đây là bí kíp giúp bạn giải quyết gọn gàng dạng toán này chỉ trong 5 giây mỗi câu...</p>
         </div>
 
-        <div class="sidebar">
-            <div class="optin-box">
-                <h3>Bản Tin Học Thuật 💌</h3>
-                <p style="font-size: 14px; color: #666; margin-bottom: 15px;">Nhận mẹo giải đề và tài liệu PDF mỗi sáng Thứ 2 hàng tuần.</p>
-                
-                <form action="https://formspree.io/f/xwvrwgnp" method="POST">
-                    <input type="hidden" name="_next" value="https://toeicholic.id.vn/thanks.html">
-                    <input type="hidden" name="Nguồn" value="Form Cột Trái Blog">
-                    <input type="text" name="name" required placeholder="Tên của bạn...">
-                    <input type="email" name="email" required placeholder="Email của bạn...">
-                    <button type="submit">Đăng Ký Nhận Tin</button>
-                </form>
-            </div>
+        <button class="btn-read-more" id="btnUnlock" onclick="openModal()">🔓 Mở Khóa Đọc Tiếp Toàn Bộ Bài Viết</button>
+
+        <div class="full-content" id="secretContent">
+            <h3 style="color:#d32f2f; margin-top:20px;">Bí kíp 1: Xác định vị trí từ loại</h3>
+            <p>Nếu chỗ trống nằm trước Danh từ, hãy mạnh dạn điền Tính từ. Nếu chỗ trống nằm sau Động từ thường, chắc chắn đó là Trạng từ. Bạn không cần dịch nghĩa cả câu, chỉ cần nhìn từ đằng trước và đằng sau chỗ trống.</p>
+            <p><strong>Ví dụ:</strong> He runs _______ (quick/quickly). Vì "runs" là động từ, ta chọn "quickly".</p>
+            <br>
+            <h3 style="color:#d32f2f;">Bí kíp 2: Dấu hiệu nhận biết đuôi từ</h3>
+            <p>Đuôi -tion, -ment, -ness luôn là Danh từ. Đuôi -ive, -able, -ful luôn là Tính từ. Hãy học thuộc bảng đuôi từ này, tốc độ làm Part 5 của bạn sẽ tăng gấp đôi!</p>
         </div>
     </div>
 
-    <footer>
-        <p>© 2026 ToeicHolic. Đồ án môn học Marketing & Sales Automation.</p>
-    </footer>
+    <div class="modal-overlay" id="leadModal">
+        <div class="modal-box">
+            <h3 style="color:#1877f2; margin-bottom:15px;">Mở Khóa Bài Viết Ngay</h3>
+            <p style="font-size:14px; color:#666; margin-bottom:20px;">Vui lòng để lại email để đọc phần tiếp theo và nhận thông báo khi có bài viết mới.</p>
+            
+            <form id="blogForm">
+                <input type="hidden" name="Nguồn" value="Mở khóa bài viết Blog">
+                <input type="text" name="name" required placeholder="Tên của bạn...">
+                <input type="email" name="email" required placeholder="Email của bạn...">
+                <button type="submit" id="blogSubmitBtn">Mở Khóa Ngay 🔓</button>
+            </form>
+            <p style="font-size:12px; color:#999; margin-top:10px; cursor:pointer;" onclick="closeModal()">Bỏ qua (Quay lại)</p>
+        </div>
+    </div>
 
+    <script>
+        function openModal() { document.getElementById('leadModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('leadModal').style.display = 'none'; }
+
+        // Xử lý Form bằng AJAX để mở khóa
+        document.getElementById("blogForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let btn = document.getElementById("blogSubmitBtn");
+            btn.innerHTML = "Đang mở khóa...";
+            
+            let formData = new FormData(this);
+            // THAY MÃ FORMSPREE CỦA BẠN VÀO ĐÂY
+            fetch("https://formspree.io/f/xwvrwgnp", {
+                method: "POST",
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    // Thành công: Đóng Popup, Ẩn phần làm mờ, Hiện bài viết full
+                    closeModal();
+                    document.getElementById('previewArea').style.maxHeight = 'none';
+                    document.getElementById('previewArea').style.setProperty('--after-display', 'none');
+                    document.getElementById('previewArea').className = ""; // Xóa class làm mờ
+                    document.getElementById('btnUnlock').style.display = 'none'; // Ẩn nút Read more
+                    document.getElementById('secretContent').style.display = 'block'; // Hiện bài viết
+                } else {
+                    alert("Có lỗi xảy ra, vui lòng thử lại!");
+                    btn.innerHTML = "Mở Khóa Ngay 🔓";
+                }
+            });
+        });
+    </script>
 </body>
 </html>
