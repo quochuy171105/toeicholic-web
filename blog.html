@@ -3,31 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog TOEIC | ToeicHolic</title>
+    <title>Blog & Chia Sẻ Kiến Thức | ToeicHolic</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f9fafb; color: #333; line-height: 1.6; }
-        header { background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .nav-container { max-width: 1000px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 24px; font-weight: bold; color: #1877f2; text-decoration: none; }
-        .nav-links { list-style: none; display: flex; gap: 20px; }
-        .nav-links a { text-decoration: none; color: #555; font-weight: 600; }
+        /* CSS Reset & Variables */
+        :root { --primary: #1877f2; --primary-dark: #166fe5; --secondary: #ff5722; --dark: #1a1a1a; --light: #f4f7fb; --text: #4a4a4a; --gray: #e1e8f0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--light); color: var(--text); line-height: 1.7; }
+        a { text-decoration: none; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* Navbar Đồng Bộ */
+        header { background-color: #fff; box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 26px; font-weight: 900; color: var(--primary); letter-spacing: -0.5px; }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { color: var(--dark); font-weight: 600; font-size: 15px; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .btn-login { background-color: var(--primary); color: white !important; padding: 10px 22px; border-radius: 8px; box-shadow: 0 4px 10px rgba(24,119,242,0.2); }
+        .btn-login:hover { background-color: var(--primary-dark); transform: translateY(-2px); }
+
+        /* Blog Header (Jumbotron) */
+        .blog-header { background: linear-gradient(135deg, #ffffff 0%, #eef2f6 100%); padding: 60px 20px; text-align: center; border-bottom: 1px solid var(--gray); }
+        .blog-header h1 { font-size: 2.8rem; color: var(--dark); font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
+        .blog-header p { font-size: 1.15rem; color: #666; max-width: 600px; margin: 0 auto; }
+
+        /* Container Layout: Lưới 2 cột (Main Content & Sidebar) */
+        .container { max-width: 1200px; margin: 50px auto; padding: 0 20px; display: grid; grid-template-columns: 2.2fr 1fr; gap: 40px; }
+
+        /* --- PHẦN BÊN TRÁI: DANH SÁCH BÀI VIẾT --- */
+        .main-content { display: flex; flex-direction: column; gap: 40px; }
+
+        /* Featured Post (Bài viết nổi bật - To nhất) */
+        .featured-post { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06); display: flex; flex-direction: column; border: 1px solid #eee; position: relative; }
+        .badge-hot { position: absolute; top: 20px; left: 20px; background: #ff004c; color: #fff; padding: 6px 15px; font-size: 12px; font-weight: bold; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; z-index: 2; box-shadow: 0 4px 10px rgba(255,0,76,0.3); }
+        .featured-img { height: 350px; background-size: cover; background-position: center; transition: transform 0.5s ease; cursor: pointer; }
+        .featured-post:hover .featured-img { transform: scale(1.03); }
+        .featured-img-wrapper { overflow: hidden; }
+        .featured-body { padding: 35px; }
+        .post-meta { display: flex; gap: 15px; font-size: 13px; color: #888; margin-bottom: 12px; font-weight: 600; text-transform: uppercase; }
+        .post-meta span.category { color: var(--primary); }
+        .featured-title { font-size: 2rem; color: var(--dark); font-weight: 800; margin-bottom: 15px; line-height: 1.3; cursor: pointer; }
+        .featured-title:hover { color: var(--primary); }
+        .featured-excerpt { font-size: 1.05rem; color: #555; margin-bottom: 25px; }
+
+        /* Standard Posts Grid (Lưới bài viết nhỏ bên dưới) */
+        .posts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .post-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.04); border: 1px solid #eee; transition: 0.3s; display: flex; flex-direction: column; }
+        .post-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+        .post-img { height: 200px; background-size: cover; background-position: center; cursor: pointer; }
+        .post-body { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
+        .post-title { font-size: 1.25rem; color: var(--dark); font-weight: 700; margin-bottom: 10px; line-height: 1.4; cursor: pointer; }
+        .post-title:hover { color: var(--primary); }
+        .post-excerpt { font-size: 0.95rem; color: #666; margin-bottom: 20px; flex-grow: 1; }
+
+        /* Nút Đọc Tiếp */
+        .btn-read { display: inline-flex; align-items: center; color: var(--primary); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; border: none; background: transparent; cursor: pointer; padding: 0; }
+        .btn-read::after { content: '→'; margin-left: 5px; transition: 0.3s; }
+        .btn-read:hover::after { margin-left: 10px; }
+
+        /* Pagination (Chuyển trang mô phỏng) */
+        .pagination { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+        .page-num { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: #fff; border: 1px solid var(--gray); border-radius: 8px; color: var(--dark); font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .page-num.active, .page-num:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        /* --- PHẦN BÊN PHẢI: SIDEBAR (Vũ khí bắt Data) --- */
+        .sidebar { display: flex; flex-direction: column; gap: 30px; }
+        .widget { background: #fff; padding: 30px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); border: 1px solid #eee; }
+        .widget-title { font-size: 1.2rem; color: var(--dark); font-weight: 800; margin-bottom: 20px; position: relative; padding-bottom: 10px; }
+        .widget-title::after { content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 3px; background: var(--primary); border-radius: 2px; }
+
+        /* Widget 1: Lead Gen Form (Bám dính) */
+        .sticky-widget { position: sticky; top: 100px; border-top: 4px solid var(--secondary); background: linear-gradient(to bottom, #fff, #fffaf8); }
+        .lead-gen-desc { font-size: 0.95rem; color: #555; margin-bottom: 20px; }
+        .lead-form input { width: 100%; padding: 12px 15px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; transition: 0.3s; }
+        .lead-form input:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(255,87,34,0.1); }
+        .btn-submit-lead { background: var(--secondary); color: white; width: 100%; padding: 14px; border: none; border-radius: 8px; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.3s; text-transform: uppercase; box-shadow: 0 4px 10px rgba(255,87,34,0.3); }
+        .btn-submit-lead:hover { background: #e64a19; transform: translateY(-2px); }
+
+        /* Widget 2: Danh mục */
+        .category-list li { border-bottom: 1px dashed #eee; padding: 12px 0; }
+        .category-list li:last-child { border-bottom: none; }
+        .category-list a { color: #555; font-weight: 600; display: flex; justify-content: space-between; }
+        .category-list a:hover { color: var(--primary); transform: translateX(5px); }
+        .category-list span { background: var(--gray); color: #666; padding: 2px 8px; border-radius: 12px; font-size: 12px; }
+
+        /* --- MODAL POPUP: GATED CONTENT --- */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 25, 47, 0.85); backdrop-filter: blur(5px); z-index: 9999; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
+        .modal-overlay.show { display: flex; opacity: 1; }
+        .modal-box { background: #fff; padding: 40px; border-radius: 20px; width: 90%; max-width: 450px; text-align: center; position: relative; transform: translateY(20px); transition: transform 0.3s ease; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
+        .modal-overlay.show .modal-box { transform: translateY(0); }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 24px; color: #999; cursor: pointer; font-weight: bold; }
+        .close-btn:hover { color: #333; }
+        .modal-icon { font-size: 40px; margin-bottom: 15px; }
+        .modal-title { font-size: 1.6rem; color: var(--dark); font-weight: 800; margin-bottom: 10px; }
+        .modal-desc { font-size: 0.95rem; color: #666; margin-bottom: 25px; }
         
-        .blog-header { background: #1877f2; color: white; text-align: center; padding: 40px 20px; }
-        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        
-        .post-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .post-img { height: 200px; background-size: cover; background-position: center; }
-        .post-content { padding: 25px; }
-        .post-title { font-size: 1.3rem; color: #333; margin-bottom: 10px; font-weight: bold; }
-        .post-excerpt { color: #666; font-size: 14px; margin-bottom: 15px; }
-        .btn-read { display: inline-block; color: #ff5722; font-weight: bold; cursor: pointer; border: none; background: none; font-size: 15px; }
-        
-        /* Popup Overlay */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; justify-content: center; align-items: center; }
-        .modal-box { background: white; padding: 30px; border-radius: 10px; width: 90%; max-width: 400px; text-align: center; }
-        .modal-box input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; }
-        .modal-box button { width: 100%; padding: 12px; background: #1877f2; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        /* Footer */
+        footer { text-align: center; padding: 40px 20px; color: #888; border-top: 1px solid var(--gray); margin-top: 60px; background: #fff; }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .container { grid-template-columns: 1fr; }
+            .sticky-widget { position: static; }
+        }
+        @media (max-width: 768px) {
+            .posts-grid { grid-template-columns: 1fr; }
+            .featured-img { height: 250px; }
+            .nav-links { display: none; }
+        }
     </style>
 </head>
 <body>
@@ -39,80 +122,202 @@
                 <li><a href="index.html">Trang Chủ</a></li>
                 <li><a href="test.html">Test Năng Lực</a></li>
                 <li><a href="courses.html">Khóa Học</a></li>
-                <li><a href="blog.html">Blog</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="login.html" class="btn-login">Đăng Nhập</a></li>
             </ul>
         </div>
     </header>
 
     <div class="blog-header">
-        <h1>Góc Chia Sẻ Kiến Thức</h1>
-        <p>Cập nhật tài liệu và mẹo thi mới nhất</p>
+        <h1>Thư Viện Kiến Thức TOEIC</h1>
+        <p>Tổng hợp các chiến thuật giải đề, mẹo tránh bẫy và kho tài liệu PDF độc quyền cập nhật mỗi tuần.</p>
     </div>
 
     <div class="container">
-        <div class="post-card">
-            <div class="post-img" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-            <div class="post-content">
-                <div class="post-title">Cách tránh bẫy Part 5 TOEIC</div>
-                <div class="post-excerpt">Part 5 luôn là phần gỡ điểm nhưng cũng dễ mất điểm nhất nếu bạn không nắm vững 3 quy tắc ngữ pháp cốt lõi này...</div>
-                <button class="btn-read" onclick="openModal('post-part5.html')">Đọc tiếp →</button>
+        
+        <div class="main-content">
+            
+            <article class="featured-post">
+                <span class="badge-hot">🔥 Xu Hướng Tự Học</span>
+                <div class="featured-img-wrapper" onclick="openModal('post-part5.html')">
+                    <div class="featured-img" style="background-image: url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80');"></div>
+                </div>
+                <div class="featured-body">
+                    <div class="post-meta">
+                        <span class="category">Mẹo Giải Đề</span> • <span>Đọc: 5 Phút</span> • <span>Tác giả: Mai Quỳnh</span>
+                    </div>
+                    <h2 class="featured-title" onclick="openModal('post-part5.html')">Cách tránh 3 bẫy kinh điển nhất trong Part 5 TOEIC (Cập nhật Format 2026)</h2>
+                    <p class="featured-excerpt">Part 5 luôn là phần gỡ điểm nhưng cũng dễ mất điểm nhất nếu bạn không nắm vững 3 quy tắc ngữ pháp cốt lõi này. Thống kê của viện ETS cho thấy có đến 40% thí sinh sập bẫy từ loại do thói quen học vẹt. Bài viết này sẽ cung cấp công thức xử lý nhanh 5 giây/câu...</p>
+                    <button class="btn-read" onclick="openModal('post-part5.html')">Mở Khóa Bài Viết</button>
+                </div>
+            </article>
+
+            <div class="posts-grid">
+                
+                <article class="post-card">
+                    <div class="post-img" style="background-image: url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');" onclick="openModal('post-tuvung.html')"></div>
+                    <div class="post-body">
+                        <div class="post-meta"><span class="category">Từ Vựng</span> • <span>Đọc: 3 Phút</span></div>
+                        <h3 class="post-title" onclick="openModal('post-tuvung.html')">Trọn bộ 600 từ vựng cốt lõi thường gặp nhất</h3>
+                        <p class="post-excerpt">Đừng học dàn trải! Hãy tập trung vào danh sách 600 từ vựng đã được thống kê xác suất xuất hiện cao nhất trong 5 năm qua...</p>
+                        <button class="btn-read" onclick="openModal('post-tuvung.html')">Mở Khóa Đọc Tiếp</button>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-img" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');" onclick="openModal('post-nghe.html')"></div>
+                    <div class="post-body">
+                        <div class="post-meta"><span class="category">Kỹ Năng Nghe</span> • <span>Đọc: 6 Phút</span></div>
+                        <h3 class="post-title" onclick="openModal('post-nghe.html')">Chiến thuật "Nghe Thụ Động" để phá đảo Part 3 & 4</h3>
+                        <p class="post-excerpt">Bí quyết luyện tai cho người mất gốc tiếng Anh. Không cần hiểu 100% nghĩa, chỉ cần bắt đúng Keywords (Từ khóa) để chọn đáp án chuẩn xác...</p>
+                        <button class="btn-read" onclick="openModal('post-nghe.html')">Mở Khóa Đọc Tiếp</button>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-img" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');" onclick="openModal('post-doc.html')"></div>
+                    <div class="post-body">
+                        <div class="post-meta"><span class="category">Kỹ Năng Đọc</span> • <span>Đọc: 4 Phút</span></div>
+                        <h3 class="post-title" onclick="openModal('post-doc.html')">Kỹ năng Skimming & Scanning cứu cánh cho Part 7</h3>
+                        <p class="post-excerpt">Làm sao để đọc hiểu đoạn văn dài 3 trang trong vòng 5 phút? Khám phá nghệ thuật đọc lướt tìm ý chính và đọc quét tìm thông tin chi tiết...</p>
+                        <button class="btn-read" onclick="openModal('post-doc.html')">Mở Khóa Đọc Tiếp</button>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-img" style="background-image: url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');" onclick="openModal('post-tamly.html')"></div>
+                    <div class="post-body">
+                        <div class="post-meta"><span class="category">Góc Tâm Lý</span> • <span>Đọc: 2 Phút</span></div>
+                        <h3 class="post-title" onclick="openModal('post-tamly.html')">Quản lý thời gian 120 phút trong phòng thi</h3>
+                        <p class="post-excerpt">Áp lực thời gian là kẻ thù số 1. Phân bổ thời gian như thế nào cho từng Part để không bao giờ bị đánh lụi 20 câu cuối cùng?</p>
+                        <button class="btn-read" onclick="openModal('post-tamly.html')">Mở Khóa Đọc Tiếp</button>
+                    </div>
+                </article>
+
             </div>
+
+            <div class="pagination">
+                <div class="page-num active">1</div>
+                <div class="page-num">2</div>
+                <div class="page-num">3</div>
+                <div class="page-num">»</div>
+            </div>
+
         </div>
 
-        <div class="post-card">
-            <div class="post-img" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-            <div class="post-content">
-                <div class="post-title">600 Từ vựng TOEIC thường gặp</div>
-                <div class="post-excerpt">Đừng học dàn trải. Hãy tập trung vào danh sách 600 từ vựng cốt lõi do ETS thống kê để tiết kiệm 50% thời gian...</div>
-                <button class="btn-read" onclick="openModal('post-tuvung.html')">Đọc tiếp →</button>
+        <div class="sidebar">
+            
+            <div class="widget">
+                <h3 class="widget-title">Chủ Đề Yêu Thích</h3>
+                <ul class="category-list">
+                    <li><a href="#">Mẹo Giải Đề <span>12</span></a></li>
+                    <li><a href="#">Từ Vựng Cốt Lõi <span>08</span></a></li>
+                    <li><a href="#">Luyện Nghe (Listening) <span>15</span></a></li>
+                    <li><a href="#">Luyện Đọc (Reading) <span>10</span></a></li>
+                    <li><a href="#">Đề Thi Thử ETS <span>05</span></a></li>
+                </ul>
             </div>
+
+            <div class="widget sticky-widget">
+                <h3 class="widget-title" style="color: var(--secondary);">🎁 Nhận Quà Tặng</h3>
+                <p class="lead-gen-desc">Đăng ký Email để nhận ngay bộ sách <b>"Giải Mã TOEIC" PDF + Audio</b> hoàn toàn miễn phí từ chuyên gia.</p>
+                
+                <form class="lead-form" action="https://formspree.io/f/xwvrwgnp" method="POST" id="sidebarForm">
+                    <input type="hidden" name="Nguồn" value="Form Sidebar Blog">
+                    <input type="hidden" name="_next" value="https://toeicholic.id.vn/thanks.html">
+                    <input type="text" name="name" required placeholder="Tên của bạn...">
+                    <input type="email" name="email" required placeholder="Email nhận sách...">
+                    <button type="submit" class="btn-submit-lead" id="sidebarBtn">Gửi Sách Cho Tôi 🚀</button>
+                </form>
+                <p style="font-size: 12px; color: #999; text-align: center; margin-top: 12px;">Cam kết không gửi tin nhắn rác.</p>
+            </div>
+
         </div>
     </div>
 
     <div class="modal-overlay" id="leadModal">
         <div class="modal-box">
-            <h3 style="color:#1877f2; margin-bottom:15px;">Mở Khóa Bài Viết</h3>
-            <p style="font-size:14px; color:#666; margin-bottom:20px;">Để lại email để đọc toàn bộ bài viết này.</p>
+            <span class="close-btn" onclick="closeModal()">×</span>
+            <div class="modal-icon">🔒</div>
+            <h3 class="modal-title">Nội Dung Độc Quyền</h3>
+            <p class="modal-desc">Bài viết này được bảo mật. Vui lòng để lại Email để hệ thống mở khóa và chuyển bạn đến bài đọc toàn văn.</p>
+            
             <form id="blogForm">
-                <input type="hidden" name="Nguồn" value="Đọc Blog">
-                <input type="email" name="email" required placeholder="Email của bạn...">
-                <button type="submit" id="blogSubmitBtn">Đọc Bài Viết Ngay 🔓</button>
+                <input type="hidden" name="Nguồn" value="Mở khóa bài viết (Gated Content)">
+                <input type="email" name="email" required placeholder="Nhập địa chỉ Email của bạn..." style="width:100%; padding:15px; margin-bottom:20px; border:2px solid #e1e8f0; border-radius:10px; font-size:15px; outline:none;">
+                <button type="submit" id="blogSubmitBtn" style="background:var(--primary); color:white; width:100%; padding:15px; border:none; border-radius:10px; font-weight:bold; font-size:16px; cursor:pointer; text-transform:uppercase;">Mở Khóa Đọc Ngay 🔓</button>
             </form>
-            <p style="font-size:12px; color:#999; margin-top:10px; cursor:pointer;" onclick="closeModal()">Đóng lại</p>
+            <p style="font-size:12px; color:#888; margin-top:15px;">Email của bạn sẽ được dùng làm tài khoản đăng nhập sau này.</p>
         </div>
     </div>
 
+    <footer>
+        <p>© 2026 ToeicHolic. Đồ án môn học Marketing & Sales Automation - Trường Đại học Kinh tế TP.HCM (UEH).</p>
+    </footer>
+
     <script>
-        let targetUrl = ""; // Biến lưu link trang bài viết sẽ chuyển tới
+        let targetUrl = ""; // Biến lưu URL trang bài viết chi tiết
 
+        // Hàm mở Popup và gán link bài viết
         function openModal(url) { 
-            targetUrl = url; // Lưu lại link khi bấm "Đọc tiếp"
-            document.getElementById('leadModal').style.display = 'flex'; 
+            targetUrl = url;
+            const modal = document.getElementById('leadModal');
+            modal.style.display = 'flex'; 
+            // Delay tí để tạo hiệu ứng mượt mà (Fade In)
+            setTimeout(() => { modal.classList.add('show'); }, 10);
         }
-        function closeModal() { document.getElementById('leadModal').style.display = 'none'; }
 
+        // Hàm đóng Popup
+        function closeModal() { 
+            const modal = document.getElementById('leadModal');
+            modal.classList.remove('show');
+            setTimeout(() => { modal.style.display = 'none'; }, 300); // Chờ hiệu ứng mờ xong mới ẩn
+        }
+
+        // Đóng popup khi click ra ngoài khung trắng
+        window.onclick = function(event) {
+            const modal = document.getElementById('leadModal');
+            if (event.target == modal) { closeModal(); }
+        }
+
+        // Xử lý Gửi Form Mở Khóa Bài Viết bằng AJAX
         document.getElementById("blogForm").addEventListener("submit", function(event) {
-            event.preventDefault();
+            event.preventDefault(); // Chặn tải lại trang
+            
             let btn = document.getElementById("blogSubmitBtn");
-            btn.innerHTML = "Đang tải bài viết...";
+            let originalText = btn.innerHTML;
+            btn.innerHTML = "Đang mở khóa... ⏳";
             btn.disabled = true;
+            btn.style.opacity = "0.7";
             
             let formData = new FormData(this);
-            // NHỚ ĐỔI MÃ FORMSPREE CỦA BẠN VÀO ĐÂY
+            
+            // Nhớ giữ nguyên mã formspree xwvrwgnp
             fetch("https://formspree.io/f/xwvrwgnp", {
                 method: "POST",
                 body: formData,
                 headers: { 'Accept': 'application/json' }
             }).then(response => {
                 if (response.ok) {
-                    // Cú chốt: Bắn data xong thì tự động chuyển trang sang bài viết đầy đủ
+                    // Chuyển hướng sang file html bài viết chi tiết
                     window.location.href = targetUrl;
                 } else {
-                    alert("Lỗi! Vui lòng thử lại.");
-                    btn.innerHTML = "Đọc Bài Viết Ngay 🔓";
+                    alert("Có lỗi kết nối mạng. Vui lòng thử lại!");
+                    btn.innerHTML = originalText;
                     btn.disabled = false;
+                    btn.style.opacity = "1";
                 }
+            }).catch(error => {
+                alert("Lỗi hệ thống. Vui lòng thử lại sau.");
+                btn.innerHTML = originalText;
+                btn.disabled = false;
             });
+        });
+
+        // Xử lý Nút gửi form bên Sidebar (Cột phải)
+        document.getElementById("sidebarForm").addEventListener("submit", function() {
+            let btn = document.getElementById("sidebarBtn");
+            btn.innerHTML = "Đang xử lý...";
         });
     </script>
 </body>
