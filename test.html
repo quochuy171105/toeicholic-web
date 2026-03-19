@@ -3,37 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Năng Lực TOEIC Đầu Vào | ToeicHolic</title>
+    <title>Kiểm Tra Năng Lực TOEIC Đầu Vào | ToeicHolic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; color: #333; }
+        /* Modern CSS Variables & Reset */
+        :root { --primary: #1877f2; --secondary: #ff5722; --dark: #1a1a1a; --light: #f4f7fb; --text: #333; --border: #e1e8f0; --success: #28a745; --danger: #dc3545; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--light); color: var(--text); line-height: 1.6; }
+
+        /* Navbar Đồng Bộ Chuẩn */
+        header { background-color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1100px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 26px; font-weight: 900; color: #1877f2; text-decoration: none; letter-spacing: -0.5px; }
+        .nav-links { list-style: none; display: flex; gap: 25px; align-items: center; }
+        .nav-links a { text-decoration: none; color: #444; font-weight: 600; font-size: 15px; transition: color 0.3s; }
+        .nav-links a:hover { color: #1877f2; }
+        .btn-login { background-color: #1877f2; color: white !important; padding: 10px 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(24,119,242,0.2); transition: 0.3s; }
+        .btn-login:hover { background-color: #166fe5; transform: translateY(-2px); }
+
+        /* Test Hero & Timer */
+        .test-hero { background: linear-gradient(135deg, #1877f2 0%, #0a4b9e 100%); color: white; text-align: center; padding: 50px 20px 80px; position: relative; }
+        .test-hero h1 { font-size: 32px; margin-bottom: 10px; font-weight: 800; }
+        .test-hero p { font-size: 16px; opacity: 0.9; }
         
-        /* Navbar */
-        header { background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .nav-container { max-width: 1000px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 24px; font-weight: bold; color: #1877f2; text-decoration: none; }
-        .nav-links { list-style: none; display: flex; gap: 20px; }
-        .nav-links a { text-decoration: none; color: #555; font-weight: 600; }
+        .timer-bar { background: white; padding: 15px 30px; border-radius: 50px; display: inline-flex; align-items: center; gap: 10px; color: var(--dark); font-weight: bold; font-size: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); position: sticky; top: 80px; z-index: 999; border: 2px solid var(--primary); margin-top: -30px; }
+        .timer-bar i { color: var(--secondary); }
+
+        /* Test Container */
+        .test-container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
         
-        .quiz-container { max-width: 600px; margin: 40px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        h2 { color: #1877f2; text-align: center; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        /* Question Card */
+        .question-card { background: white; border-radius: 12px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid var(--border); transition: 0.3s; }
+        .question-card:hover { border-color: #b3d4ff; box-shadow: 0 8px 25px rgba(24, 119, 242, 0.1); }
+        .q-number { display: inline-block; background: #eef5ff; color: var(--primary); font-weight: bold; padding: 5px 15px; border-radius: 20px; font-size: 14px; margin-bottom: 15px; }
+        .q-text { font-size: 18px; font-weight: 600; color: var(--dark); margin-bottom: 20px; line-height: 1.5; }
+        .reading-box { background: #fdfdfd; border-left: 4px solid var(--primary); padding: 15px; margin-bottom: 20px; font-size: 15px; color: #555; border-radius: 0 8px 8px 0; }
         
-        .question-block { margin: 20px 0; padding-bottom: 15px; border-bottom: 1px dashed #eee; }
-        .question { font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; }
-        .options label { display: block; background: #f9f9f9; padding: 12px; margin-bottom: 8px; border-radius: 5px; cursor: pointer; border: 1px solid #ddd; }
+        /* Custom Radio Options */
+        .options-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .option-label { display: flex; align-items: center; padding: 15px 20px; border: 2px solid var(--border); border-radius: 8px; cursor: pointer; transition: 0.2s; font-size: 16px; font-weight: 500; background: #fff; }
+        .option-label:hover { border-color: var(--primary); background: #f4f9ff; }
+        .option-label input[type="radio"] { display: none; }
+        .radio-custom { width: 24px; height: 24px; border: 2px solid #ccc; border-radius: 50%; margin-right: 15px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; color: #888; transition: 0.2s; }
         
-        /* CSS cho phần chấm điểm Xanh / Đỏ */
-        .options label.correct-answer { background-color: #e8f5e9 !important; border-color: #4CAF50 !important; color: #2e7d32; font-weight: bold; }
-        .options label.wrong-answer { background-color: #ffebee !important; border-color: #f44336 !important; color: #c62828; text-decoration: line-through; }
-        .explanation { display: none; margin-top: 10px; padding: 15px; background: #fff3e0; border-left: 4px solid #ff9800; font-size: 14px; border-radius: 4px; }
+        /* Khi User Click Chọn */
+        .option-label input[type="radio"]:checked + .radio-custom { border-color: var(--primary); background: var(--primary); color: white; }
+        .option-label.selected { border-color: var(--primary); background: #f4f9ff; }
+
+        /* Form Bắt Lead Cuối Bài */
+        .lead-capture-box { background: linear-gradient(135deg, #fff 0%, #fff3e0 100%); border: 2px dashed var(--secondary); border-radius: 16px; padding: 40px; text-align: center; margin-top: 50px; }
+        .lead-capture-box h3 { font-size: 24px; color: var(--dark); margin-bottom: 10px; }
+        .lead-capture-box p { color: #666; margin-bottom: 25px; }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+        .form-group input { width: 100%; padding: 15px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; }
+        .form-group input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.1); }
+        .btn-submit { background: var(--secondary); color: white; border: none; padding: 16px 30px; font-size: 18px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .btn-submit:hover { background: #e64a19; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3); }
+
+        /* --- KẾT QUẢ & CHỮA BÀI (Chỉ hiện sau khi nộp) --- */
+        .result-dashboard { background: white; border-radius: 16px; padding: 40px; text-align: center; margin: -20px auto 40px; max-width: 800px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); display: none; border-top: 5px solid var(--primary); }
+        .score-circle { width: 120px; height: 120px; border-radius: 50%; border: 8px solid var(--primary); display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 900; color: var(--primary); margin: 0 auto 20px; }
+        .result-title { font-size: 24px; color: var(--dark); margin-bottom: 10px; }
+        .result-message { font-size: 16px; color: #666; margin-bottom: 30px; padding: 0 20px; }
+        .btn-upsell { display: inline-block; background: var(--primary); color: white; padding: 15px 40px; border-radius: 50px; font-weight: bold; font-size: 18px; text-decoration: none; box-shadow: 0 5px 15px rgba(24, 119, 242, 0.3); transition: 0.3s; }
+        .btn-upsell:hover { background: var(--primary-dark); transform: scale(1.05); }
+
+        /* Trạng thái chữa bài */
+        .option-label.correct { border-color: var(--success) !important; background: #f0fdf4 !important; }
+        .option-label.correct .radio-custom { background: var(--success); border-color: var(--success); color: white; }
+        .option-label.wrong { border-color: var(--danger) !important; background: #fff0f1 !important; }
+        .option-label.wrong .radio-custom { background: var(--danger); border-color: var(--danger); color: white; }
         
-        #lead-gate, #result-box { display: none; margin-top: 30px; padding: 20px; border-radius: 8px; text-align: center; }
-        #lead-gate { border: 2px dashed #ff5722; background: #fff3e0; }
-        #result-box { border: 2px solid #4CAF50; background: #e8f5e9; margin-bottom: 20px; }
-        
-        input[type="text"], input[type="email"] { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; }
-        button { background: #ff5722; color: white; padding: 12px 20px; width: 100%; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
-        .btn-submit-quiz { background: #1877f2; margin-top: 20px; }
+        .explanation { display: none; background: #f8f9fa; border-left: 4px solid var(--primary); padding: 15px; margin-top: 15px; border-radius: 0 8px 8px 0; font-size: 15px; color: #444; }
+        .explanation strong { color: var(--primary); }
+
+        @media (max-width: 768px) { .test-hero h1 { font-size: 26px; } .question-card { padding: 20px; } }
     </style>
 </head>
 <body>
@@ -43,136 +88,234 @@
             <a href="index.html" class="logo">ToeicHolic</a>
             <ul class="nav-links">
                 <li><a href="index.html">Trang Chủ</a></li>
-                <li><a href="test.html">Test Năng Lực</a></li>
+                <li><a href="test.html" style="color:#1877f2;">Test Năng Lực</a></li>
                 <li><a href="courses.html">Khóa Học</a></li>
                 <li><a href="blog.html">Blog</a></li>
+                <li><a href="login.html" class="btn-login">Đăng Nhập</a></li>
             </ul>
         </div>
     </header>
 
-    <div class="quiz-container">
-        <h2>Kiểm Tra Trình Độ TOEIC</h2>
-        
-        <div id="result-box">
-            <h3 style="color:#2e7d32;">🎉 Phân tích thành công!</h3>
-            <div style="font-size: 24px; color: #d32f2f; font-weight: bold; margin: 10px 0;">Đúng <span id="score">0</span>/3 câu</div>
-            <p>Xem chi tiết đáp án bên dưới. Lộ trình học đã được gửi vào Email của bạn!</p>
-        </div>
+    <div class="test-hero">
+        <h1>Đánh Giá Năng Lực TOEIC Đầu Vào</h1>
+        <p>Mô phỏng đề thi ETS 2026. Hoàn thành để nhận lộ trình học cá nhân hóa!</p>
+    </div>
 
-        <div id="quiz-box">
-            <div class="question-block" id="block-q1">
-                <div class="question">1. The manager requested that all staff _______ the meeting.</div>
-                <div class="options">
-                    <label id="lbl-q1-A"><input type="radio" name="q1" value="A"> A. attend</label>
-                    <label id="lbl-q1-B"><input type="radio" name="q1" value="B"> B. attends</label>
-                    <label id="lbl-q1-C"><input type="radio" name="q1" value="C"> C. attending</label>
-                </div>
-                <div class="explanation" id="exp-q1">
-                    <b>❌ Bạn đã sai:</b> Đáp án đúng là <b>A (attend)</b>. Vì theo cấu trúc giả định (Subjunctive), sau "requested that" động từ luôn phải ở dạng nguyên thể không chia.
-                </div>
-            </div>
-
-            <div class="question-block" id="block-q2">
-                <div class="question">2. Please review the document _______ signing it.</div>
-                <div class="options">
-                    <label id="lbl-q2-A"><input type="radio" name="q2" value="A"> A. after</label>
-                    <label id="lbl-q2-B"><input type="radio" name="q2" value="B"> B. before</label>
-                    <label id="lbl-q2-C"><input type="radio" name="q2" value="C"> C. while</label>
-                </div>
-                <div class="explanation" id="exp-q2">
-                    <b>❌ Bạn đã sai:</b> Đáp án đúng là <b>B (before)</b>. Dịch nghĩa: "Vui lòng kiểm tra tài liệu TRƯỚC KHI ký nó".
-                </div>
-            </div>
-
-            <div class="question-block" id="block-q3">
-                <div class="question">3. We are looking forward _______ from you soon.</div>
-                <div class="options">
-                    <label id="lbl-q3-A"><input type="radio" name="q3" value="A"> A. to hear</label>
-                    <label id="lbl-q3-B"><input type="radio" name="q3" value="B"> B. hearing</label>
-                    <label id="lbl-q3-C"><input type="radio" name="q3" value="C"> C. to hearing</label>
-                </div>
-                <div class="explanation" id="exp-q3">
-                    <b>❌ Bạn đã sai:</b> Đáp án đúng là <b>C (to hearing)</b>. Đây là cụm từ cố định: "Look forward to + V-ing" (Mong đợi điều gì đó). Rất nhiều người nhầm chọn A.
-                </div>
-            </div>
-
-            <button type="button" class="btn-submit-quiz" id="btnScore" onclick="showLeadGate()">Nộp Bài & Xem Kết Quả</button>
-        </div>
-
-        <div id="lead-gate">
-            <h3 style="color:#ff5722;">Phân tích kết quả đã sẵn sàng!</h3>
-            <p>Nhập email để xem bạn làm sai ở đâu và nhận lộ trình học.</p>
-            <form id="testForm">
-                <input type="hidden" name="Nguồn" value="Làm Test Năng Lực">
-                <input type="text" name="name" required placeholder="Họ và Tên của bạn...">
-                <input type="email" name="email" required placeholder="Email nhận kết quả...">
-                <button type="submit" id="submitBtn">Gửi & Xem Đáp Án Ngay 🚀</button>
-            </form>
+    <div style="text-align: center;">
+        <div class="timer-bar">
+            <i class="fas fa-stopwatch"></i> <span id="timer">05:00</span>
         </div>
     </div>
 
+    <div class="result-dashboard" id="resultDashboard">
+        <div class="score-circle"><span id="scoreDisplay">0</span>/5</div>
+        <h2 class="result-title" id="resultTitle">Đang phân tích...</h2>
+        <p class="result-message" id="resultMessage">Chi tiết chữa bài đã được mở khóa bên dưới. Hệ thống cũng đã gửi một bản sao bảng điểm vào Email của bạn.</p>
+        <a href="courses.html" class="btn-upsell">Xem Lộ Trình Khắc Phục Lỗi Sai 🚀</a>
+    </div>
+
+    <main class="test-container">
+        <form id="testForm">
+            <input type="hidden" name="Nguồn" value="Test Năng Lực VIP">
+            
+            <div id="questionsWrapper">
+                <div class="question-card">
+                    <span class="q-number">Câu 1 - Ngữ Pháp</span>
+                    <p class="q-text">The new marketing strategies ______ by the board of directors yesterday.</p>
+                    <div class="options-grid">
+                        <label class="option-label" id="lbl-q1-A"><input type="radio" name="q1" value="A"><span class="radio-custom">A</span> approve</label>
+                        <label class="option-label" id="lbl-q1-B"><input type="radio" name="q1" value="B"><span class="radio-custom">B</span> approves</label>
+                        <label class="option-label" id="lbl-q1-C"><input type="radio" name="q1" value="C"><span class="radio-custom">C</span> were approved</label>
+                        <label class="option-label" id="lbl-q1-D"><input type="radio" name="q1" value="D"><span class="radio-custom">D</span> approved</label>
+                    </div>
+                    <div class="explanation" id="exp-q1">
+                        <strong>Giải thích:</strong> Câu có "yesterday" (Quá khứ) và chủ ngữ chỉ vật "strategies" (bị động). Cấu trúc Bị động thì Quá khứ đơn: were + V-ed/P2. Chọn <b>(C)</b>.
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <span class="q-number">Câu 2 - Từ Vựng</span>
+                    <p class="q-text">All employees are required to attend the ______ training session on Friday.</p>
+                    <div class="options-grid">
+                        <label class="option-label" id="lbl-q2-A"><input type="radio" name="q2" value="A"><span class="radio-custom">A</span> mandatory</label>
+                        <label class="option-label" id="lbl-q2-B"><input type="radio" name="q2" value="B"><span class="radio-custom">B</span> optional</label>
+                        <label class="option-label" id="lbl-q2-C"><input type="radio" name="q2" value="C"><span class="radio-custom">C</span> dependent</label>
+                        <label class="option-label" id="lbl-q2-D"><input type="radio" name="q2" value="D"><span class="radio-custom">D</span> informative</label>
+                    </div>
+                    <div class="explanation" id="exp-q2">
+                        <strong>Giải thích:</strong> Có cụm "are required to" (được yêu cầu/bắt buộc). Tính từ phù hợp nghĩa nhất là <b>(A) mandatory</b>: có tính bắt buộc.
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <span class="q-number">Câu 3 - Từ Loại</span>
+                    <p class="q-text">We are looking forward to ______ the updated software.</p>
+                    <div class="options-grid">
+                        <label class="option-label" id="lbl-q3-A"><input type="radio" name="q3" value="A"><span class="radio-custom">A</span> install</label>
+                        <label class="option-label" id="lbl-q3-B"><input type="radio" name="q3" value="B"><span class="radio-custom">B</span> installing</label>
+                        <label class="option-label" id="lbl-q3-C"><input type="radio" name="q3" value="C"><span class="radio-custom">C</span> installation</label>
+                        <label class="option-label" id="lbl-q3-D"><input type="radio" name="q3" value="D"><span class="radio-custom">D</span> installed</label>
+                    </div>
+                    <div class="explanation" id="exp-q3">
+                        <strong>Giải thích:</strong> Cấu trúc "look forward to + V-ing". Mặc dù (C) là danh từ cũng có thể đứng sau 'to', nhưng vì phía sau có tân ngữ "the updated software" nên ta phải dùng V-ing để nối. Chọn <b>(B)</b>.
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <span class="q-number">Câu 4 - Giới Từ</span>
+                    <p class="q-text">The construction of the new bridge will be completed ______ the end of next month.</p>
+                    <div class="options-grid">
+                        <label class="option-label" id="lbl-q4-A"><input type="radio" name="q4" value="A"><span class="radio-custom">A</span> on</label>
+                        <label class="option-label" id="lbl-q4-B"><input type="radio" name="q4" value="B"><span class="radio-custom">B</span> in</label>
+                        <label class="option-label" id="lbl-q4-C"><input type="radio" name="q4" value="C"><span class="radio-custom">C</span> by</label>
+                        <label class="option-label" id="lbl-q4-D"><input type="radio" name="q4" value="D"><span class="radio-custom">D</span> at</label>
+                    </div>
+                    <div class="explanation" id="exp-q4">
+                        <strong>Giải thích:</strong> Giới từ "by" + mốc thời gian mang nghĩa "trước thời điểm đó". "By the end of" là một cụm cố định rất hay thi. Chọn <b>(C)</b>.
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <span class="q-number">Câu 5 - Đọc Hiểu Part 7</span>
+                    <div class="reading-box">
+                        <b>To:</b> All Staff<br>
+                        <b>Subject:</b> Office Relocation<br>
+                        Please pack your desk belongings into the provided boxes by Friday. The moving team will arrive on Saturday morning to transport everything to the new building.
+                    </div>
+                    <p class="q-text">When will the moving team arrive?</p>
+                    <div class="options-grid">
+                        <label class="option-label" id="lbl-q5-A"><input type="radio" name="q5" value="A"><span class="radio-custom">A</span> On Thursday</label>
+                        <label class="option-label" id="lbl-q5-B"><input type="radio" name="q5" value="B"><span class="radio-custom">B</span> On Friday</label>
+                        <label class="option-label" id="lbl-q5-C"><input type="radio" name="q5" value="C"><span class="radio-custom">C</span> On Saturday</label>
+                        <label class="option-label" id="lbl-q5-D"><input type="radio" name="q5" value="D"><span class="radio-custom">D</span> On Sunday</label>
+                    </div>
+                    <div class="explanation" id="exp-q5">
+                        <strong>Giải thích:</strong> Dò từ khóa "moving team arrive" trong bài đọc, ta thấy câu: "The moving team will arrive on Saturday morning". Chọn <b>(C)</b>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="lead-capture-box" id="leadForm">
+                <i class="fas fa-clipboard-check" style="font-size: 50px; color: var(--secondary); margin-bottom: 15px;"></i>
+                <h3>Bạn Đã Hoàn Thành Bài Test!</h3>
+                <p>Nhập thông tin bên dưới để hệ thống AI chấm điểm và gửi Bảng phân tích năng lực chi tiết về Email của bạn.</p>
+                
+                <div class="form-group">
+                    <label>Họ và Tên:</label>
+                    <input type="text" name="name" required placeholder="Ví dụ: Nguyễn Văn A">
+                </div>
+                <div class="form-group">
+                    <label>Địa chỉ Email:</label>
+                    <input type="email" name="email" required placeholder="Nhập email để nhận bảng điểm...">
+                </div>
+                
+                <button type="submit" id="submitTestBtn" class="btn-submit">
+                    <i class="fas fa-paper-plane"></i> Nộp Bài & Xem Điểm Ngay
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <footer style="background: var(--dark); color: white; text-align: center; padding: 20px; margin-top: 50px;">
+        <p>© 2026 ToeicHolic - Hệ Thống Đánh Giá Năng Lực</p>
+    </footer>
+
     <script>
-        function showLeadGate() {
-            document.getElementById('quiz-box').style.display = 'none';
-            document.getElementById('lead-gate').style.display = 'block';
-        }
+        // 1. Logic Giao diện: Đổi màu khi click chọn đáp án
+        const optionLabels = document.querySelectorAll('.option-label');
+        optionLabels.forEach(label => {
+            label.addEventListener('click', function() {
+                // Xóa class 'selected' của các label cùng tên (cùng 1 câu)
+                const radio = this.querySelector('input[type="radio"]');
+                const groupName = radio.name;
+                document.querySelectorAll(`input[name="${groupName}"]`).forEach(r => {
+                    r.parentElement.classList.remove('selected');
+                });
+                // Thêm class 'selected' cho thẻ đang click
+                this.classList.add('selected');
+            });
+        });
 
-        document.getElementById("testForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            let btn = document.getElementById("submitBtn");
-            btn.innerHTML = "Đang chấm điểm...";
+        // 2. Logic Đồng hồ đếm ngược (5 phút)
+        let time = 5 * 60;
+        const timerEl = document.getElementById('timer');
+        const countdown = setInterval(() => {
+            let m = Math.floor(time / 60);
+            let s = time % 60;
+            timerEl.innerText = `${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
+            if(time <= 0) {
+                clearInterval(countdown);
+                timerEl.style.color = "red";
+                timerEl.innerText = "Hết Giờ!";
+            } else { time--; }
+        }, 1000);
+
+        // Đáp án chuẩn
+        const correctAnswers = { q1: 'C', q2: 'A', q3: 'B', q4: 'C', q5: 'C' };
+        
+        // Link Make.com vĩnh viễn
+        const makeWebhookUrl = "https://hook.eu1.make.com/sixcuf27vlxmx7bccjkrjfrylef7kdr6";
+
+        // 3. Logic Xử lý Form Nộp Bài
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Chặn double click & Hiện loading
+            let btn = document.getElementById('submitTestBtn');
+            btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i> Đang phân tích kết quả...";
             btn.disabled = true;
+            btn.style.opacity = "0.7";
+            clearInterval(countdown); // Dừng đồng hồ
 
-            // Xử lý gửi Formspree
-            let formData = new FormData(this);
-            fetch("https://hook.eu1.make.com/sixcuf27vlxmx7bccjkrjfrylef7kdr6", {
+            // Gửi data về Make.com
+            fetch(makeWebhookUrl, {
                 method: "POST",
-                body: formData,
-                headers: { 'Accept': 'application/json' }
+                body: new FormData(this)
             }).then(response => {
-                if (response.ok) {
-                    // Thành công -> Ẩn Form, Hiện Kết quả, Hiện lại Bài Test
-                    document.getElementById('lead-gate').style.display = 'none';
-                    document.getElementById('result-box').style.display = 'block';
-                    document.getElementById('quiz-box').style.display = 'block';
-                    document.getElementById('btnScore').style.display = 'none'; // Giấu nút nộp bài
+                // THÀNH CÔNG: Bắt đầu chấm điểm
+                let score = 0;
+                
+                // Hàm chấm từng câu
+                function checkAnswer(qName, trueAns) {
+                    let selected = document.querySelector(`input[name="${qName}"]:checked`);
+                    let selectedVal = selected ? selected.value : null;
 
-                    // Khóa toàn bộ nút radio không cho bấm nữa
-                    let radios = document.querySelectorAll('input[type="radio"]');
-                    radios.forEach(r => r.disabled = true);
+                    // Tô xanh đáp án đúng
+                    document.getElementById(`lbl-${qName}-${trueAns}`).classList.add('correct');
 
-                    let score = 0;
-                    const correctAnswers = { q1: 'A', q2: 'B', q3: 'C' };
-
-                    // Hàm check từng câu
-                    function checkAnswer(qName, trueAns) {
-                        let selected = document.querySelector(`input[name="${qName}"]:checked`);
-                        let selectedVal = selected ? selected.value : null;
-
-                        // Tô xanh đáp án đúng bất kể người dùng chọn gì
-                        document.getElementById(`lbl-${qName}-${trueAns}`).classList.add('correct-answer');
-
-                        if (selectedVal === trueAns) {
-                            score++; // Trả lời đúng
-                        } else {
-                            // Trả lời sai (hoặc bỏ trống) -> Tô đỏ ô đã chọn và hiện giải thích
-                            if (selectedVal) {
-                                document.getElementById(`lbl-${qName}-${selectedVal}`).classList.add('wrong-answer');
-                            }
-                            document.getElementById(`exp-${qName}`).style.display = 'block';
-                        }
+                    if (selectedVal === trueAns) {
+                        score++; // Đúng
+                    } else if (selectedVal) {
+                        // Sai -> Tô đỏ đáp án đã chọn
+                        document.getElementById(`lbl-${qName}-${selectedVal}`).classList.add('wrong');
                     }
-
-                    checkAnswer('q1', correctAnswers.q1);
-                    checkAnswer('q2', correctAnswers.q2);
-                    checkAnswer('q3', correctAnswers.q3);
-
-                    document.getElementById('score').innerText = score;
-                } else {
-                    alert("Có lỗi xảy ra, vui lòng thử lại!");
-                    btn.innerHTML = "Gửi & Xem Đáp Án Ngay 🚀";
-                    btn.disabled = false;
+                    // Hiện giải thích
+                    document.getElementById(`exp-${qName}`).style.display = 'block';
                 }
+
+                // Chấm 5 câu
+                for(let i=1; i<=5; i++) { checkAnswer(`q${i}`, correctAnswers[`q${i}`]); }
+
+                // Cập nhật Bảng Dashboard Kết Quả
+                document.getElementById('scoreDisplay').innerText = score;
+                let titleEl = document.getElementById('resultTitle');
+                if(score === 5) { titleEl.innerText = "Tuyệt Vời! Nền tảng của bạn rất vững."; titleEl.style.color = "#28a745"; }
+                else if(score >= 3) { titleEl.innerText = "Khá Tốt! Nhưng vẫn còn nhiều bẫy bạn chưa biết."; titleEl.style.color = "#ff9800"; }
+                else { titleEl.innerText = "Cảnh Báo: Bạn đang mất gốc nghiêm trọng!"; titleEl.style.color = "#dc3545"; }
+
+                // Ẩn Form nhập data, Hiện Dashboard
+                document.getElementById('leadForm').style.display = 'none';
+                let dashboard = document.getElementById('resultDashboard');
+                dashboard.style.display = 'block';
+                
+                // Cuộn mượt mà lên bảng kết quả
+                dashboard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            }).catch(error => {
+                alert("Lỗi mạng. Không thể gửi bài.");
+                btn.innerHTML = "<i class='fas fa-paper-plane'></i> Nộp Bài & Xem Điểm Ngay";
+                btn.disabled = false;
+                btn.style.opacity = "1";
             });
         });
     </script>

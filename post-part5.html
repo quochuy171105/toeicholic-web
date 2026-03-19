@@ -2,19 +2,159 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Cách tránh bẫy Part 5 TOEIC | ToeicHolic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bí kíp tránh 10 bẫy Part 5 TOEIC ETS kinh điển | ToeicHolic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: auto; }
-        img { width: 100%; border-radius: 8px; margin: 20px 0; }
-        h1 { color: #1877f2; }
-        a.back { color: #ff5722; text-decoration: none; font-weight: bold; }
+        :root { --primary: #1877f2; --secondary: #ff5722; --dark: #1a1a1a; --light: #f4f7fb; --text-main: #333; --transition: 0.3sEase; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--light); color: var(--text-main); line-height: 1.8; }
+        
+        /* Navbar đơn giản để khách tập trung đọc */
+        header { background: white; padding: 15px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; text-align: center; }
+        .logo { font-size: 24px; font-weight: 900; color: var(--primary); text-decoration: none; }
+        
+        /* Bài viết Container */
+        .post-reader-container { max-width: 850px; margin: 40px auto; padding: 0 20px; padding-bottom: 60px; }
+        .back-to-blog { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; font-weight: 600; margin-bottom: 30px; }
+        .back-to-blog:hover { color: var(--primary); transform: translateX(-5px); }
+        
+        /* Header bài viết */
+        .post-full-header { text-align: center; margin-bottom: 50px; }
+        .full-cat-tag { background: rgba(24, 119, 242, 0.1); color: var(--primary); padding: 6px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; text-transform: uppercase; display: inline-block; margin-bottom: 15px; }
+        .full-title { font-size: 42px; color: var(--dark); line-height: 1.2; font-weight: 900; margin-bottom: 20px; }
+        .full-meta { color: #888; font-size: 14px; display: flex; justify-content: center; gap: 20px; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 15px 0; }
+        
+        .full-feature-img { width: 100%; height: 450px; object-fit: cover; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 50px; }
+        
+        /* Nội dung chi tiết - Phần thưởng cho lead */
+        .post-content-area { background: white; padding: 60px; border-radius: 16px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); font-size: 17px; }
+        .post-content-area h2 { font-size: 28px; color: var(--dark); margin: 40px 0 20px; padding-bottom: 10px; border-bottom: 3px solid #f0f0f0; }
+        .post-content-area h3 { font-size: 22px; color: var(--primary); margin: 30px 0 15px; font-weight: 700; }
+        .post-content-area p { margin-bottom: 25px; color: #444; }
+        .post-content-area ul { margin-bottom: 25px; padding-left: 20px; list-style: disc; }
+        .post-content-area li { margin-bottom: 10px; }
+        
+        /* Hộp highlight mẹo */
+        .tip-box { background: #fff8e1; border-left: 5px solid #ffc107; padding: 25px; margin: 30px 0; border-radius: 4px; display: flex; gap: 15px; align-items: flex-start; }
+        .tip-box i { color: #ffc107; font-size: 24px; margin-top: 3px; }
+        .tip-box p { margin: 0; color: #856404; font-weight: 600; }
+
+        /* Ví dụ TOEIC */
+        .toeic-example { background: #fbfdff; border: 2px solid #e1f0ff; padding: 25px; border-radius: 12px; margin: 25px 0; position: relative; }
+        .toeic-example::before { content: 'Đề Thi Thật'; position: absolute; top: -12px; left: 20px; background: var(--primary); color: white; padding: 2px 10px; font-size: 11px; font-weight: bold; border-radius: 4px; text-transform: uppercase; }
+        .ex-question { font-size: 18px; font-weight: bold; color: var(--dark); margin-bottom: 10px; }
+        .ex-trans { font-size: 15px; color: #777; font-style: italic; margin-bottom: 15px; }
+        .ex-options { list-style: none !important; padding-left: 0 !important; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .ex-options li { border: 1px solid #ddd; padding: 10px; border-radius: 6px; background: white; cursor: pointer; transition: 0.2s; }
+        .ex-options li:hover { border-color: var(--primary); background: #fbfdff; }
+        .ex-options li.correct { border-color: #28a745; background: #d4edda; color: #155724; font-weight: bold; }
+        .ex-options li.wrong { border-color: #dc3545; background: #f8d7da; color: #721c24; text-decoration: line-through; }
+        .ex-explain { margin-top: 15px; padding-top: 15px; border-top: 1px solid #e1f0ff; font-size: 14px; color: #555; background: #f1f8ff; padding: 10px; border-radius: 4px;}
+
+        /* Khối điều hướng mua khóa học */
+        .post-upsell { background: linear-gradient(135deg, #fff 0%, #fff3e0 100%); border: 3px dashed var(--secondary); padding: 40px; border-radius: 12px; text-align: center; margin-top: 60px; box-shadow: 0 10px 20px rgba(255, 87, 34, 0.1); }
+        .post-upsell h3 { font-size: 26px; color: var(--secondary); margin-bottom: 15px; border:none !important;}
+        .post-upsell p { color: #555; margin-bottom: 25px; font-size: 16px;}
+        .btn-post-buy { display: inline-block; background: var(--secondary); color: white; padding: 15px 35px; border-radius: 50px; font-size: 18px; font-weight: bold; text-decoration: none; box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4); transition: var(--transition); }
+        .btn-post-buy:hover { background: #e64a19; transform: scale(1.05); }
+
+        @media (max-width: 768px) {
+            .full-title { font-size: 28px; }
+            .post-content-area { padding: 30px 20px; }
+            .full-feature-img { height: 250px; }
+            .ex-options { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-    <a href="blog.html" class="back">← Quay lại Blog</a>
-    <h1>Cách tránh bẫy Part 5 TOEIC cực kỳ hiệu quả</h1>
-    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Học TOEIC">
-    <p>Chào mừng bạn đã mở khóa thành công! Đây là phần nội dung độc quyền.</p>
-    <p><b>Bí kíp 1: Xác định vị trí từ loại...</b> (Bạn tự chép nội dung chi tiết vào đây nhé).</p>
+
+    <header>
+        <a href="index.html" class="logo">ToeicHolic</a>
+    </header>
+
+    <main class="post-reader-container">
+        <a href="blog.html" class="back-to-blog"><i class="fas fa-arrow-left"></i> Quay lại Kho Blog</a>
+        
+        <article class="post-full-header">
+            <span class="full-cat-tag">Ngữ Pháp Trọng Tâm</span>
+            <h1 class="full-title">10 Bẫy Ngữ Pháp Kinh Điển Part 5 ETS Luôn Gài & Cách Giải Trong 5 Giây</h1>
+            <div class="full-meta">
+                <span><i class="fas fa-calendar-alt"></i> Cập nhật: Hôm nay</span>
+                <span><i class="fas fa-clock"></i> 8 phút đọc</span>
+                <span><i class="fas fa-user-edit"></i> Admin ToeicHolic</span>
+            </div>
+        </article>
+
+        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Bẫy Part 5 TOEIC" class="full-feature-img">
+
+        <div class="post-content-areacontent">
+            <p>Chúc mừng bạn đã mở khóa thành công! Đây là bài viết dành riêng cho các lead tiềm năng của ToeicHolic. Part 5 (Incomplete Sentences) tuy chỉ chiếm 30 câu nhưng là phần "săn điểm" nhanh nhất. ETS (đơn vị ra đề) hiểu rõ tâm lý làm nhanh của học viên nên luôn gài cắm những cái bẫy tinh vi khiến bạn mất 25% điểm số của phần này một cách vô lý.</p>
+            
+            <p>Dưới đây là 3 trong số 10 bẫy phổ biến nhất và chiến thuật để bạn nhìn ra đáp án ngay lập tức.</p>
+
+            <h2>Bẫy 1: Chia động từ dựa vào Chủ ngữ "giả" (Cụm giới từ)</h2>
+            <p>Đây là bẫy ETS yêu thích nhất. Đề bài sẽ đưa ra một chủ ngữ rất dài, có chứa các giới từ (of, in, at, with...). Bạn thường có xu hướng nhìn danh từ đứng ngay trước ô trống và chia động từ theo nó. Sai lầm!</p>
+            
+            <div class="tip-box">
+                <i class="fas fa-lightbulb"></i>
+                <p>💡 BÍ KÍP 5 GIÂY: Quy tắc "Giới từ đầu tiên". Hãy tìm giới từ đầu tiên sau chủ ngữ. Chủ ngữ CHÍNH là danh từ nằm TRƯỚC giới từ đó.</p>
+            </div>
+
+            <div class="toeic-example">
+                <p class="ex-question">The box of colorful notebooks ______ completely confidential.</p>
+                <p class="ex-trans">(Cái hộp chứa những cuốn sổ tay đầy màu sắc hoàn toàn được bảo mật).</p>
+                <ul class="ex-options">
+                    <li class="wrong">(A) are (Chia theo notebooks -> Sai)</li>
+                    <li class="correct">(B) is (ĐÁP ÁN ĐÚNG - Chia theo box)</li>
+                    <li>(C) were</li>
+                    <li>(D) being</li>
+                </ul>
+                <div class="ex-explain"><b>Giải thích:</b> Giới từ đầu tiên là "of". Danh từ trước nó là "The box" (số ít). Vậy động từ phải chia số ít là "is". Đừng để "notebooks" (số nhiều) đánh lừa bạn!</div>
+            </div>
+
+            <h2>Bẫy 2: Cặp từ dễ nhầm lẫn (Affect vs Effect)</h2>
+            <p>ETS biết bạn học từ vựng lan man. Họ sẽ đưa ra 4 đáp án nhìn có vẻ giống nhau về mặt chữ hoặc nghĩa nhưng khác biệt hoàn toàn về từ loại hoặc ngữ cảnh sử dụng.</p>
+
+            <div class="toeic-example">
+                <p class="ex-question">The new policy will have a significant ______ on employee morale.</p>
+                <ul class="ex-options">
+                    <li class="wrong">(A) affect (Động từ)</li>
+                    <li class="correct">(B) effect (Danh từ - ĐÁP ÁN ĐÚNG)</li>
+                </ul>
+                <div class="ex-explain"><b>Giải thích:</b> Trước ô trống có mạo từ "a" và tính từ "significant". Sau tính từ bắt buộc phải là Danh từ. "Effect" là danh từ (ảnh hưởng), "Affect" là động từ (tác động).</div>
+            </div>
+
+            <h2>Bẫy 3: Cấu trúc song hành (Parallel Structure)</h2>
+            <p>ETS gài bẫy bằng cách cho một chuỗi các từ, và ô trống nằm cuối chuỗi đó. Nếu bạn không xác định được từ loại của các từ đứng trước, bạn sẽ chọn sai.</p>
+            <p>Công thức song hành: <b>A, B, and C</b>. Nếu A và B là tính từ, C cũng phải là tính từ. Nếu A và B là V-ing, C cũng phải là V-ing.</p>
+
+            <div class="toeic-example">
+                <p class="ex-question">The job requires creativity, leadership, and ______ .</p>
+                <ul class="ex-options">
+                    <li>(A) flexible (Tính từ)</li>
+                    <li class="correct">(B) flexibility (Danh từ - ĐÁP ÁN ĐÚNG)</li>
+                    <li>(C) flexibly</li>
+                    <li>(D) flatten</li>
+                </ul>
+                <div class="ex-explain"><b>Giải thích:</b> Trước "and" ta thấy "creativity" (danh từ) và "leadership" (danh từ). Do đó ô trống sau "and" cũng bắt buộc phải là Danh từ -> Chọn "flexibility".</div>
+            </div>
+
+            <p>Đó chỉ là 3 bẫy nhỏ. Bạn có muốn học trọn bộ 10 bẫy Part 5 và hàng trăm bẫy Part 1-7 khác để tự tin ăn trọn 800+ TOEIC?</p>
+
+            <div class="post-upsell">
+                <i class="fas fa-gift ebook-icon"></i>
+                <h3>Bạn Vừa Mở Khóa Tài Liệu Này Thành Công!</h3>
+                <p>Điều đó chứng tỏ bạn cực kỳ quyết tâm chinh phục TOEIC. Đừng dừng lại ở đây! Hệ thống đang có chương trình <b>FLASH SALE 50%</b> cho khóa học "Luyện Đề 800+ Thần Tốc" (Chỉ dành cho 100 lead đăng ký sớm nhất).</p>
+                <a href="courses.html" class="btn-post-buy">XEM CHI TIẾT KHÓA HỌC FLASH SALE🚀</a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer style="background: var(--dark); color:white; text-align:center; padding: 20px; margin-top: auto;">
+        <p>© 2026 ToeicHolic - Hệ thống Automation Marketing</p>
+    </footer>
+
 </body>
 </html>
