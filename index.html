@@ -181,19 +181,33 @@
             <h3>🎁 Quà Tặng Độc Quyền</h3>
             <p>Để lại Email để nhận ngay bộ Ebook "Bẻ Khóa TOEIC" và mã giảm giá 50% khóa học.</p>
             
-            <form action="https://hook.eu1.make.com/7hsf3szs89su1h26yzkd2ga8zyql58mb" method="POST">
-                <input type="hidden" name="_next" value="https://toeicholic.id.vn/thanks.html">
+            <form id="homeForm">
                 <input type="hidden" name="Nguồn" value="Trang Chủ Cuối Trang">
-                
                 <div class="form-group">
                     <input type="text" name="name" required placeholder="Nhập Họ và Tên của bạn...">
                 </div>
                 <div class="form-group">
                     <input type="email" name="email" required placeholder="Nhập địa chỉ Email...">
                 </div>
-                
-                <button type="submit" class="btn-submit">Gửi Tài Liệu Cho Tôi 🚀</button>
+                <button type="submit" id="homeSubmitBtn" class="btn-submit">Gửi Tài Liệu Cho Tôi 🚀</button>
             </form>
+
+            <script>
+                document.getElementById('homeForm').addEventListener('submit', function(e) {
+                    e.preventDefault(); // Chặn việc nhảy sang trang trắng
+                    let btn = document.getElementById('homeSubmitBtn');
+                    btn.innerHTML = "Đang xử lý... ⏳";
+                    btn.disabled = true;
+
+                    // ĐIỀN LINK WEBHOOK MAKE.COM CỦA BẠN VÀO DƯỚI ĐÂY
+                    fetch("https://hook.eu1.make.com/7hsf3szs89su1h26yzkd2ga8zyql58mb", {
+                        method: "POST",
+                        body: new FormData(this)
+                    }).then(() => {
+                        window.location.href = "thanks.html"; // Tự động nhảy sang trang Cảm ơn chốt sale
+                    });
+                });
+            </script>
         </div>
     </div>
 
