@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google tag (gtag.js) -->
+        <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6QWETXMPE"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -12,80 +12,96 @@
 
         gtag('config', 'G-B6QWETXMPE');
     </script>
-    <title>Khóa Học & Bảng Giá | ToeicHolic</title>
+    <title>Khóa Học & Thanh Toán | ToeicHolic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary: #1877f2; --secondary: #ff5722; --dark: #111; --light: #f9fafb; --text: #555; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        :root { --primary: #1877f2; --primary-dark: #166fe5; --secondary: #ff5722; --dark: #1a1a1a; --light: #f4f7fb; --text: #333; --border: #e1e8f0; --transition: 0.3s ease; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
         body { background-color: var(--light); color: var(--text); line-height: 1.6; }
-        
-        /* Navbar */
+
+        /* Navbar Đồng Bộ */
         header { background-color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .nav-container { max-width: 1100px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 26px; font-weight: 900; color: var(--primary); text-decoration: none; letter-spacing: -0.5px; }
         .nav-links { list-style: none; display: flex; gap: 25px; align-items: center; }
-        .nav-links a { text-decoration: none; color: #444; font-weight: 600; font-size: 15px; transition: 0.3s; }
+        .nav-links a { text-decoration: none; color: #444; font-weight: 600; font-size: 15px; transition: color 0.3s; }
         .nav-links a:hover { color: var(--primary); }
-        .btn-login { background-color: var(--primary); color: white !important; padding: 10px 20px; border-radius: 8px; }
+        .btn-login-nav { background-color: var(--primary); color: white !important; padding: 10px 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(24,119,242,0.2); transition: 0.3s; }
+        .btn-login-nav:hover { background-color: var(--primary-dark); transform: translateY(-2px); }
 
-        /* Hero & Countdown */
-        .page-header { background: linear-gradient(135deg, #0a192f 0%, #172a45 100%); color: white; text-align: center; padding: 60px 20px; position: relative; overflow: hidden; }
-        .page-header h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 15px; color: #64ffda; }
-        .page-header p { font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px auto; opacity: 0.9; }
+        /* Hero Section */
+        .pricing-hero { background: linear-gradient(135deg, #1a1a1a 0%, #333 100%); color: white; text-align: center; padding: 60px 20px; }
+        .pricing-hero h1 { font-size: 36px; margin-bottom: 15px; font-weight: 800; color: #fff; }
+        .pricing-hero p { font-size: 18px; color: #ccc; max-width: 600px; margin: 0 auto; }
+        .flash-sale-badge { display: inline-block; background: var(--secondary); color: white; padding: 8px 20px; border-radius: 50px; font-weight: bold; font-size: 14px; margin-bottom: 20px; animation: pulse 2s infinite; }
+
+        /* Pricing Cards */
+        .pricing-container { max-width: 1100px; margin: -40px auto 60px; padding: 0 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; position: relative; z-index: 10; }
+        .pricing-card { background: white; border-radius: 16px; padding: 40px 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: center; border: 2px solid transparent; transition: var(--transition); display: flex; flex-direction: column; }
+        .pricing-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.12); }
+        .pricing-card.popular { border-color: var(--primary); position: relative; transform: scale(1.05); box-shadow: 0 15px 40px rgba(24, 119, 242, 0.15); }
+        .pricing-card.popular:hover { transform: scale(1.05) translateY(-5px); }
+        .popular-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 5px 20px; border-radius: 20px; font-size: 13px; font-weight: bold; text-transform: uppercase; }
         
-        .countdown-box { background: rgba(255,255,255,0.1); border: 1px solid rgba(100,255,218,0.3); padding: 15px 30px; border-radius: 50px; display: inline-block; font-size: 1.2rem; font-weight: bold; backdrop-filter: blur(10px); color: #fff; }
-        .countdown-box span { color: var(--secondary); margin: 0 5px; font-size: 1.5rem; }
-
-        /* Pricing Table (Hiệu ứng chim mồi) */
-        .pricing-section { max-width: 1100px; margin: 60px auto; padding: 0 20px; }
-        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; align-items: center; }
+        .card-title { font-size: 22px; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+        .card-price { font-size: 40px; font-weight: 900; color: var(--primary); margin-bottom: 15px; display: flex; justify-content: center; align-items: flex-start; }
+        .card-price span { font-size: 16px; margin-top: 10px; color: #888; text-decoration: line-through; margin-left: 10px; }
+        .currency { font-size: 20px; margin-top: 5px; margin-right: 5px; }
         
-        .price-card { background: white; border-radius: 20px; padding: 40px 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; border: 1px solid #eee; transition: 0.3s; position: relative; }
-        .price-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .card-features { list-style: none; margin: 30px 0; text-align: left; flex-grow: 1; }
+        .card-features li { margin-bottom: 15px; color: #555; display: flex; gap: 10px; }
+        .card-features i { color: #4caf50; font-size: 18px; margin-top: 3px; }
         
-        /* Thẻ đặc biệt ở giữa */
-        .price-card.popular { border: 2px solid var(--primary); transform: scale(1.05); box-shadow: 0 20px 40px rgba(24,119,242,0.15); z-index: 2; }
-        .price-card.popular:hover { transform: scale(1.05) translateY(-5px); }
-        .badge-popular { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--secondary); color: white; padding: 5px 20px; border-radius: 20px; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 5px 10px rgba(255,87,34,0.3); }
+        .btn-buy { width: 100%; padding: 15px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: var(--transition); border: none; }
+        .btn-basic { background: #eef5ff; color: var(--primary); }
+        .btn-basic:hover { background: #ddebff; }
+        .btn-pro { background: var(--primary); color: white; box-shadow: 0 5px 15px rgba(24, 119, 242, 0.3); }
+        .btn-pro:hover { background: var(--primary-dark); }
 
-        .tier-name { font-size: 1.5rem; color: var(--dark); font-weight: 700; margin-bottom: 10px; }
-        .tier-desc { color: #888; font-size: 0.95rem; margin-bottom: 30px; min-height: 45px; }
-        .tier-price { font-size: 3rem; font-weight: 900; color: var(--dark); margin-bottom: 10px; line-height: 1; }
-        .tier-price span { font-size: 1rem; color: #888; font-weight: normal; }
-        .original-price { text-decoration: line-through; color: #aaa; font-size: 1.2rem; display: block; margin-bottom: 20px; }
+        /* CHECKOUT MODAL (QUY TRÌNH MUA HÀNG THỰC TẾ) */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 2000; opacity: 0; transition: 0.3s ease; backdrop-filter: blur(5px); }
+        .modal-overlay.show { opacity: 1; }
+        .checkout-box { background: white; width: 90%; max-width: 800px; border-radius: 16px; overflow: hidden; display: flex; transform: translateY(-20px); transition: 0.3s ease; box-shadow: 0 20px 50px rgba(0,0,0,0.3); position: relative; }
+        .modal-overlay.show .checkout-box { transform: translateY(0); }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; color: #999; cursor: pointer; z-index: 10; }
+        .close-btn:hover { color: var(--dark); }
 
-        .tier-features { list-style: none; margin-bottom: 35px; text-align: left; }
-        .tier-features li { margin-bottom: 15px; display: flex; align-items: center; font-size: 1rem; color: #444; }
-        .tier-features li::before { content: '✓'; color: #4CAF50; font-weight: bold; margin-right: 12px; font-size: 1.2rem; }
-        .tier-features li.disabled { color: #aaa; }
-        .tier-features li.disabled::before { content: '✕'; color: #ccc; }
+        /* Cột Trái: Giỏ hàng */
+        .checkout-cart { width: 45%; background: #f8f9fa; padding: 40px 30px; border-right: 1px solid var(--border); }
+        .checkout-cart h3 { font-size: 20px; color: var(--dark); margin-bottom: 25px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+        .order-item { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 16px; font-weight: 600; color: var(--text); }
+        .order-price { color: var(--primary); }
+        .order-discount { color: #dc3545; font-size: 14px; display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .order-total { display: flex; justify-content: space-between; align-items: center; border-top: 2px dashed #ccc; padding-top: 20px; margin-top: 20px; font-size: 20px; font-weight: 800; color: var(--dark); }
+        .secure-badge { margin-top: 40px; display: flex; align-items: center; gap: 10px; font-size: 13px; color: #666; background: #e8f5e9; padding: 10px; border-radius: 6px; }
+        .secure-badge i { color: #4caf50; font-size: 20px; }
 
-        .btn-buy { display: block; width: 100%; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 16px; text-decoration: none; transition: 0.3s; text-transform: uppercase; letter-spacing: 0.5px; }
-        .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
-        .btn-outline:hover { background: rgba(24,119,242,0.05); }
-        .btn-fill { background: var(--primary); color: white; border: 2px solid var(--primary); box-shadow: 0 8px 20px rgba(24,119,242,0.3); }
-        .btn-fill:hover { background: #166fe5; transform: translateY(-2px); }
-
-        /* Accordion (Syllabus & FAQ) */
-        .accordion-section { max-width: 800px; margin: 80px auto; padding: 0 20px; }
-        .section-title { text-align: center; font-size: 2.2rem; color: var(--dark); margin-bottom: 40px; font-weight: 800; }
+        /* Cột Phải: Form & QR Code */
+        .checkout-form-area { width: 55%; padding: 40px 30px; background: white; }
+        .checkout-step h3 { font-size: 20px; margin-bottom: 20px; color: var(--dark); }
         
-        .accordion-item { background: white; margin-bottom: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); overflow: hidden; border: 1px solid #eee; }
-        .accordion-header { padding: 20px; font-weight: 700; font-size: 1.1rem; color: var(--dark); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; }
-        .accordion-header:hover { background: #f4f7fb; }
-        .accordion-header::after { content: '+'; font-size: 1.5rem; color: var(--primary); transition: 0.3s; }
-        .accordion-item.active .accordion-header::after { content: '−'; transform: rotate(180deg); }
-        .accordion-content { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; color: #666; }
-        .accordion-item.active .accordion-content { padding: 0 20px 20px 20px; max-height: 500px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #555; margin-bottom: 5px; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 15px; transition: 0.3s; }
+        .form-group input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.1); }
+        
+        .payment-methods { display: flex; gap: 10px; margin-bottom: 25px; }
+        .pay-method { flex: 1; border: 2px solid var(--border); padding: 10px; border-radius: 8px; text-align: center; cursor: pointer; transition: 0.2s; font-weight: 600; font-size: 14px; color: #666; }
+        .pay-method.active { border-color: var(--primary); background: #f4f9ff; color: var(--primary); }
+        .pay-method img { height: 20px; margin-bottom: 5px; display: block; margin: 0 auto 5px; }
 
-        footer { text-align: center; padding: 40px 20px; color: #888; border-top: 1px solid #eee; margin-top: 50px; }
+        .btn-checkout { width: 100%; background: var(--secondary); color: white; border: none; padding: 15px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-checkout:hover { background: #e64a19; }
 
-        /* Responsive */
-        @media (max-width: 900px) {
-            .pricing-grid { grid-template-columns: 1fr; gap: 40px; }
-            .price-card.popular { transform: scale(1); }
-            .price-card.popular:hover { transform: translateY(-5px); }
-            .nav-links { display: none; }
-        }
+        /* Trạng thái 2: Hiển thị QR Code (Mặc định ẩn) */
+        #qrStep { display: none; text-align: center; }
+        .qr-image { width: 200px; height: 200px; border: 1px solid #eee; border-radius: 10px; padding: 10px; margin: 0 auto 20px; display: block; }
+        .transfer-info { background: #fdfdfd; border: 1px dashed #ccc; padding: 15px; border-radius: 8px; text-align: left; font-size: 14px; margin-bottom: 20px; }
+        .transfer-info strong { color: var(--primary); }
+
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(255, 87, 34, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 87, 34, 0); } }
+
+        @media (max-width: 900px) { .checkout-box { flex-direction: column; } .checkout-cart, .checkout-form-area { width: 100%; } .nav-links { display: none; } }
     </style>
 </head>
 <body>
@@ -98,143 +114,232 @@
                 <li><a href="test.html">Test Năng Lực</a></li>
                 <li><a href="courses.html" style="color:#1877f2;">Khóa Học</a></li>
                 <li><a href="blog.html">Blog</a></li>
-                <li><a href="login.html" class="btn-login">Đăng Nhập</a></li>
+                <li><a href="login.html" class="btn-login-nav">Đăng Nhập</a></li>
             </ul>
         </div>
     </header>
 
-    <div class="page-header">
-        <h1>Đầu Tư Một Lần - Chứng Chỉ Cầm Tay</h1>
-        <p>Chọn lộ trình phù hợp với mục tiêu của bạn. Ưu đãi giảm giá 50% chỉ áp dụng cho 50 học viên đăng ký sớm nhất trong ngày hôm nay.</p>
-        <div class="countdown-box">
-            🔥 Flash Sale kết thúc sau: <span id="hours">02</span>:<span id="mins">45</span>:<span id="secs">00</span>
-        </div>
+    <div class="pricing-hero">
+        <div class="flash-sale-badge"><i class="fas fa-bolt"></i> FLASH SALE - KẾT THÚC TRONG <span id="countdown">02:45:00</span></div>
+        <h1>Đầu Tư Một Lần - Sở Hữu Mãi Mãi</h1>
+        <p>Cam kết đầu ra 800+ hoặc hoàn tiền 100%. Chọn gói học phù hợp với mục tiêu của bạn.</p>
     </div>
 
-    <div class="pricing-section">
-        <div class="pricing-grid">
+    <div class="pricing-container">
+        
+        <div class="pricing-card">
+            <h3 class="card-title">Tự Học (Basic)</h3>
+            <div class="card-price"><span class="currency">đ</span>199K <span>500K</span></div>
+            <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Dành cho người đã có nền tảng</p>
+            <ul class="card-features">
+                <li><i class="fas fa-check"></i> Kho 50 đề thi thực chiến ETS</li>
+                <li><i class="fas fa-check"></i> File nghe Audio chuẩn</li>
+                <li><i class="fas fa-check"></i> Ebook 500 từ vựng cốt lõi</li>
+                <li style="color:#aaa;"><i class="fas fa-times" style="color:#aaa;"></i> Không có AI chấm điểm</li>
+            </ul>
+            <button class="btn-buy btn-basic" onclick="openCheckout('Gói Tự Học (Basic)', 199000)">Mua Gói Này</button>
+        </div>
+
+        <div class="pricing-card popular">
+            <div class="popular-badge">Khuyên Dùng</div>
+            <h3 class="card-title">Cấp Tốc (Pro)</h3>
+            <div class="card-price"><span class="currency">đ</span>299K <span>800K</span></div>
+            <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Lộ trình toàn diện 30 ngày</p>
+            <ul class="card-features">
+                <li><i class="fas fa-check"></i> <b>Mọi tính năng của gói Basic</b></li>
+                <li><i class="fas fa-check"></i> AI chấm điểm & giải thích lỗi sai</li>
+                <li><i class="fas fa-check"></i> Video bài giảng 10 bẫy Part 5</li>
+                <li><i class="fas fa-check"></i> Hỗ trợ giải đáp 24/7 qua Zalo</li>
+            </ul>
+            <button class="btn-buy btn-pro" onclick="openCheckout('Gói Cấp Tốc (Pro)', 299000)">Đăng Ký Ngay</button>
+        </div>
+
+        <div class="pricing-card">
+            <h3 class="card-title">Kèm 1-1 (VIP)</h3>
+            <div class="card-price"><span class="currency">đ</span>999K <span>2.500K</span></div>
+            <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Mất gốc muốn thi gấp</p>
+            <ul class="card-features">
+                <li><i class="fas fa-check"></i> <b>Mọi tính năng của gói Pro</b></li>
+                <li><i class="fas fa-check"></i> Lên lộ trình cá nhân hóa 100%</li>
+                <li><i class="fas fa-check"></i> 4 buổi Zoom chữa đề trực tiếp</li>
+                <li><i class="fas fa-check"></i> Cam kết hoàn tiền bằng văn bản</li>
+            </ul>
+            <button class="btn-buy btn-basic" onclick="openCheckout('Gói Kèm 1-1 (VIP)', 999000)">Mua Gói Này</button>
+        </div>
+
+    </div>
+
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="checkout-box">
+            <span class="close-btn" onclick="closeCheckout()">&times;</span>
             
-            <div class="price-card">
-                <div class="tier-name">Khởi Động</div>
-                <div class="tier-desc">Dành cho người mất gốc cần làm quen với đề thi TOEIC.</div>
-                <div class="tier-price">0đ<span>/tháng</span></div>
-                <div class="original-price">Miễn phí trọn đời</div>
-                <ul class="tier-features">
-                    <li>Bộ 600 từ vựng cốt lõi (PDF)</li>
-                    <li>Làm mini-test 15 câu mỗi ngày</li>
-                    <li class="disabled">Video giải chi tiết Part 5 & 7</li>
-                    <li class="disabled">Chấm điểm Writing & Speaking</li>
-                    <li class="disabled">Hỗ trợ 1-kèm-1 qua Zalo</li>
-                </ul>
-                <a href="index.html" class="btn-buy btn-outline">Nhận Miễn Phí</a>
+            <div class="checkout-cart">
+                <h3><i class="fas fa-shopping-cart"></i> Giỏ Hàng Của Bạn</h3>
+                
+                <div class="order-item">
+                    <span id="cartCourseName">Gói Cấp Tốc (Pro)</span>
+                    <span class="order-price" id="cartPrice">299.000đ</span>
+                </div>
+                <div class="order-discount">
+                    <span>Mã giảm giá (Flash Sale)</span>
+                    <span>- Áp dụng</span>
+                </div>
+                
+                <div class="order-total">
+                    <span>Tổng thanh toán:</span>
+                    <span id="cartTotal" style="color: var(--secondary);">299.000đ</span>
+                </div>
+
+                <div class="secure-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Thanh toán an toàn 100%. Khóa học sẽ được kích hoạt tự động vào Email của bạn ngay sau khi thanh toán.</span>
+                </div>
             </div>
 
-            <div class="price-card popular">
-                <div class="badge-popular">Bán Chạy Nhất</div>
-                <div class="tier-name">Cấp Tốc 30 Ngày</div>
-                <div class="tier-desc">Lộ trình bứt phá điểm số nhanh nhất để kịp xét tốt nghiệp.</div>
-                <div class="tier-price">299k<span>/khóa</span></div>
-                <div class="original-price">600.000 VNĐ</div>
-                <ul class="tier-features">
-                    <li>Mọi quyền lợi của gói Khởi Động</li>
-                    <li><strong>Mở khóa 20 Đề thi ETS 2026</strong></li>
-                    <li><strong>Video giải chi tiết từng câu</strong></li>
-                    <li>Thuật toán phân tích lỗ hổng kiến thức</li>
-                    <li class="disabled">Hỗ trợ 1-kèm-1 qua Zalo</li>
-                </ul>
-                <a href="thanks.html" class="btn-buy btn-fill">Đăng Ký Ngay 🚀</a>
-            </div>
+            <div class="checkout-form-area">
+                
+                <div id="formStep" class="checkout-step">
+                    <h3>Thông Tin Khách Hàng</h3>
+                    <form id="orderForm">
+                        <input type="hidden" name="Nguồn" value="Đơn Hàng Mới">
+                        <input type="hidden" name="course" id="inputCourse">
+                        
+                        <div class="form-group">
+                            <label>Họ và tên *</label>
+                            <input type="text" name="name" required placeholder="Nhập họ và tên...">
+                        </div>
+                        <div class="form-group">
+                            <label>Số điện thoại *</label>
+                            <input type="tel" name="phone" required placeholder="Nhập số điện thoại...">
+                        </div>
+                        <div class="form-group">
+                            <label>Email nhận khóa học *</label>
+                            <input type="email" name="email" required placeholder="example@gmail.com">
+                        </div>
 
-            <div class="price-card">
-                <div class="tier-name">VIP Mentorship</div>
-                <div class="tier-desc">Cam kết đầu ra bằng văn bản. Học trực tiếp với giáo viên 900+.</div>
-                <div class="tier-price">1.5Tr<span>/tháng</span></div>
-                <div class="original-price">3.000.000 VNĐ</div>
-                <ul class="tier-features">
-                    <li>Mọi quyền lợi của gói Cấp Tốc</li>
-                    <li>Chấm chữa kỹ năng Viết/Nói chi tiết</li>
-                    <li><strong>Học Zoom 1-kèm-1 mỗi tối</strong></li>
-                    <li><strong>Cam kết hoàn tiền 100%</strong></li>
-                    <li>Lộ trình cá nhân hóa 100%</li>
-                </ul>
-                <a href="thanks.html" class="btn-buy btn-outline">Giữ Chỗ Ngay</a>
-            </div>
+                        <label style="font-size: 13px; font-weight: 600; color: #555; margin-bottom: 5px; display:block;">Phương thức thanh toán</label>
+                        <div class="payment-methods">
+                            <div class="pay-method active"><i class="fas fa-university" style="font-size:20px; color:#1877f2; margin-bottom:5px;"></i><br>Chuyển khoản</div>
+                            <div class="pay-method"><i class="fas fa-wallet" style="font-size:20px; color:#a50064; margin-bottom:5px;"></i><br>Ví MoMo</div>
+                        </div>
 
-        </div>
-    </div>
+                        <button type="submit" id="btnPlaceOrder" class="btn-checkout">
+                            Tạo Đơn Hàng & Thanh Toán <i class="fas fa-lock"></i>
+                        </button>
+                    </form>
+                </div>
 
-    <div class="accordion-section">
-        <h2 class="section-title">Bạn Sẽ Học Gì Trong 30 Ngày?</h2>
-        
-        <div class="accordion-item">
-            <div class="accordion-header">Tuần 1: Củng cố nền tảng Ngữ pháp & Từ vựng (Mục tiêu: 450+)</div>
-            <div class="accordion-content">
-                <p>- Nắm vững 12 thì cơ bản trong tiếng Anh.<br>- Quy tắc nhận diện cấu trúc S-V-O-C.<br>- Học 150 từ vựng chủ đề Office & HR.<br>- Luyện tập nghe thụ động Part 1 & 2.</p>
-            </div>
-        </div>
+                <div id="qrStep" class="checkout-step">
+                    <h3 style="color: #4caf50;"><i class="fas fa-check-circle"></i> Đơn Hàng Đã Tạo!</h3>
+                    <p style="font-size: 14px; color: #666; margin-bottom: 15px;">Mở App Ngân hàng và quét mã QR dưới đây. Hệ thống sẽ tự động xác nhận sau 1-3 phút.</p>
+                    
+                    <img id="qrImage" src="" alt="QR Code" class="qr-image">
+                    
+                    <div class="transfer-info">
+                        Ngân hàng: <strong>MB Bank (Ví dụ)</strong><br>
+                        Chủ TK: <strong>NGUYEN QUOC HUY</strong><br>
+                        Số tiền: <strong id="qrAmount" style="color:var(--secondary); font-size:16px;">299.000đ</strong><br>
+                        Nội dung: <strong>TOEIC <span id="qrPhone"></span></strong>
+                    </div>
 
-        <div class="accordion-item">
-            <div class="accordion-header">Tuần 2: Tuyệt chiêu xử lý Part 3, 4, 5 (Mục tiêu: 600+)</div>
-            <div class="accordion-content">
-                <p>- Kỹ năng Skimming & Scanning.<br>- Cách nhận biết bẫy từ đồng âm trong bài Nghe.<br>- Công thức giải nhanh Part 5 không cần dịch nghĩa (chỉ mất 5s/câu).</p>
-            </div>
-        </div>
+                    <button class="btn-checkout" style="background: var(--primary);" onclick="finishOrder()">
+                        Tôi Đã Chuyển Khoản Thành Công
+                    </button>
+                </div>
 
-        <div class="accordion-item">
-            <div class="accordion-header">Tuần 3 & 4: Thực chiến giải đề ETS 2026 (Mục tiêu: 800+)</div>
-            <div class="accordion-content">
-                <p>- Áp lực thời gian: Giải đề full 120 phút liên tục.<br>- Phân tích đáp án sai và sửa lỗi trực tiếp.<br>- Mẹo quản lý thời gian cực căng ở Part 7.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="accordion-section" style="margin-top: 40px;">
-        <h2 class="section-title">Câu Hỏi Thường Gặp</h2>
-        
-        <div class="accordion-item">
-            <div class="accordion-header">Mình mất gốc hoàn toàn thì có theo học gói 299k được không?</div>
-            <div class="accordion-content">
-                <p>Hoàn toàn được! Lộ trình được thiết kế đi từ số 0. Hệ thống sẽ có bài test đầu vào để xác định bạn hổng kiến thức ở đâu, từ đó ép bạn học bù phần đó trước khi vào luyện đề chuyên sâu.</p>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <div class="accordion-header">Sau khi chuyển khoản, bao lâu mình được nhận tài khoản?</div>
-            <div class="accordion-content">
-                <p>Hệ thống tự động hóa của chúng tôi sẽ kích hoạt tài khoản ngay lập tức. Sau khi bạn quét mã QR thanh toán thành công, hãy kiểm tra Email (kể cả hộp thư Spam) trong vòng 3 phút.</p>
             </div>
         </div>
     </div>
-
-    <footer>
-        <p>© 2026 ToeicHolic. Đồ án môn học Marketing & Sales Automation.</p>
-    </footer>
 
     <script>
-        // 1. Logic cho Accordion (Mở/Đóng thanh cuộn)
-        const accordions = document.querySelectorAll('.accordion-header');
-        accordions.forEach(acc => {
-            acc.addEventListener('click', function() {
-                const parent = this.parentElement;
-                // Đóng các thẻ đang mở khác (Tùy chọn)
-                document.querySelectorAll('.accordion-item').forEach(item => {
-                    if(item !== parent) item.classList.remove('active');
-                });
-                parent.classList.toggle('active');
+        // --- LOGIC GIAO DIỆN MUA HÀNG ---
+        let currentPrice = 0;
+
+        // 1. Mở cửa sổ Checkout khi bấm Mua
+        function openCheckout(courseName, price) {
+            currentPrice = price;
+            
+            // Cập nhật thông tin giỏ hàng
+            document.getElementById('cartCourseName').innerText = courseName;
+            document.getElementById('inputCourse').value = courseName; // Gắn vào form ẩn
+            
+            let formattedPrice = price.toLocaleString('vi-VN') + 'đ';
+            document.getElementById('cartPrice').innerText = formattedPrice;
+            document.getElementById('cartTotal').innerText = formattedPrice;
+
+            // Reset UI về bước 1
+            document.getElementById('formStep').style.display = 'block';
+            document.getElementById('qrStep').style.display = 'none';
+
+            // Hiện Modal
+            const modal = document.getElementById('checkoutModal');
+            modal.style.display = 'flex'; 
+            setTimeout(() => { modal.classList.add('show'); }, 10);
+        }
+
+        // Đóng Checkout
+        function closeCheckout() {
+            const modal = document.getElementById('checkoutModal');
+            modal.classList.remove('show');
+            setTimeout(() => { modal.style.display = 'none'; }, 300);
+        }
+
+        // 2. Xử lý Tạo Đơn Hàng & Bắn Data & Hiện QR Code
+        const makeWebhookUrl = "https://hook.eu1.make.com/sixcuf27vlxmx7bccjkrjfrylef7kdr6";
+
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let btn = document.getElementById('btnPlaceOrder');
+            btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i> Đang tạo mã QR...";
+            btn.disabled = true;
+
+            // Lấy SĐT khách nhập làm Nội dung chuyển khoản
+            let phoneNum = document.querySelector('input[name="phone"]').value;
+            
+            // Tạo link VietQR Động (Tự động điền số tiền và nội dung)
+            // CẤU TRÚC VIETQR: https://img.vietqr.io/image/<MãNgânHàng>-<SốTàiKhoản>-compact2.png?amount=<SốTiền>&addInfo=<NộiDung>&accountName=<TênChủTK>
+            // BẠN HÃY THAY MÃ NGÂN HÀNG VÀ SỐ TK CỦA BẠN VÀO LINK NÀY:
+            let qrUrl = `https://img.vietqr.io/image/VCB-1031359137-compact2.png?amount=${currentPrice}&addInfo=TOEIC%20${phoneNum}&accountName=NGUYEN%20QUOC%20HUY`;
+            
+            fetch(makeWebhookUrl, {
+                method: "POST",
+                body: new FormData(this)
+            }).then(() => {
+                // Thành công: Chuyển sang bước quét QR
+                document.getElementById('formStep').style.display = 'none';
+                document.getElementById('qrStep').style.display = 'block';
+                
+                // Gắn Link QR và thông tin
+                document.getElementById('qrImage').src = qrUrl;
+                document.getElementById('qrAmount').innerText = currentPrice.toLocaleString('vi-VN') + 'đ';
+                document.getElementById('qrPhone').innerText = phoneNum;
+                
+                // Trả nút về cũ phòng khi tắt mở lại
+                btn.innerHTML = 'Tạo Đơn Hàng & Thanh Toán <i class="fas fa-lock"></i>';
+                btn.disabled = false;
+            }).catch(error => {
+                alert("Lỗi hệ thống. Vui lòng thử lại!");
+                btn.innerHTML = 'Tạo Đơn Hàng & Thanh Toán <i class="fas fa-lock"></i>';
+                btn.disabled = false;
             });
         });
 
-        // 2. Logic Đếm ngược Flash Sale (Tạo sự khan hiếm giả)
-        let timeInSecs = 2 * 3600 + 45 * 60; // Bắt đầu ở 2h 45m
-        
+        // 3. Hoàn tất mua hàng
+        function finishOrder() {
+            alert("Cảm ơn bạn! Hệ thống đang kiểm tra giao dịch. Khóa học sẽ được gửi qua Email trong ít phút.");
+            window.location.href = "index.html";
+        }
+
+        // --- ĐẾM NGƯỢC FLASH SALE NHƯ CŨ ---
+        let timeInSecs = 2 * 3600 + 45 * 60; 
         setInterval(() => {
             if(timeInSecs > 0) timeInSecs--;
             let h = Math.floor(timeInSecs / 3600);
             let m = Math.floor((timeInSecs % 3600) / 60);
             let s = timeInSecs % 60;
-
-            document.getElementById('hours').innerText = h.toString().padStart(2, '0');
-            document.getElementById('mins').innerText = m.toString().padStart(2, '0');
-            document.getElementById('secs').innerText = s.toString().padStart(2, '0');
+            document.getElementById('countdown').innerText = 
+                `${h < 10 ? '0'+h : h}:${m < 10 ? '0'+m : m}:${s < 10 ? '0'+s : s}`;
         }, 1000);
     </script>
 </body>
