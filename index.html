@@ -12,217 +12,532 @@
 
         gtag('config', 'G-B6QWETXMPE');
     </script>
-    <title>ToeicHolic | Phá Đảo TOEIC 800+ Trong 30 Ngày</title>
+    <title>ToeicHolic | Phá Đảo TOEIC 800+ Bằng Công Nghệ AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* CSS Reset & Font */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #fdfdfd; color: #333; line-height: 1.6; }
-        
-        /* Navbar */
-        header { background-color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        .nav-container { max-width: 1100px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 26px; font-weight: 900; color: #1877f2; text-decoration: none; letter-spacing: -0.5px; }
-        .nav-links { list-style: none; display: flex; gap: 25px; align-items: center; }
-        .nav-links a { text-decoration: none; color: #444; font-weight: 600; font-size: 15px; transition: color 0.3s; }
-        .nav-links a:hover { color: #1877f2; }
-        .btn-login { background-color: #1877f2; color: white !important; padding: 10px 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(24,119,242,0.2); }
+        /* CSS Reset & Core Variables */
+        :root { 
+            --primary: #1877f2; --primary-dark: #166fe5; --secondary: #ff5722; 
+            --dark: #0f172a; --dark-light: #1e293b; --light: #f8fafc; --text: #334155; 
+            --text-muted: #64748b; --border: #e2e8f0; --success: #10b981; 
+            --gradient: linear-gradient(135deg, #1877f2 0%, #0ea5e9 100%);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', 'Segoe UI', sans-serif; }
+        body { background-color: #fff; color: var(--text); line-height: 1.7; overflow-x: hidden; scroll-behavior: smooth; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        /* 1. Hero Section (Phần đầu trang) */
-        .hero { max-width: 1100px; margin: 50px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-        .hero-content h1 { font-size: 3rem; line-height: 1.2; color: #111; margin-bottom: 20px; font-weight: 800; }
-        .hero-content h1 span { color: #1877f2; }
-        .hero-content p { font-size: 1.1rem; color: #555; margin-bottom: 30px; }
-        .hero-buttons { display: flex; gap: 15px; }
-        .btn-primary { background: #ff5722; color: white; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px; box-shadow: 0 4px 15px rgba(255,87,34,0.3); transition: 0.3s; }
-        .btn-primary:hover { background: #e64a19; transform: translateY(-2px); }
-        .btn-secondary { background: #f0f2f5; color: #333; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px; transition: 0.3s; }
-        .btn-secondary:hover { background: #e4e6e9; }
-        .hero-image img { width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        /* --- NAVBAR ĐỒNG BỘ --- */
+        header { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.05); position: fixed; width: 100%; top: 0; z-index: 1000; transition: var(--transition); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; max-width: 1200px; margin: 0 auto; }
+        .logo { font-size: 28px; font-weight: 900; color: var(--primary); letter-spacing: -1px; display: flex; align-items: center; gap: 10px; }
+        .logo i { color: var(--secondary); }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { color: var(--dark); font-weight: 600; font-size: 15px; position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--primary); transition: var(--transition); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .btn-login-nav { background: var(--gradient) !important; color: white !important; padding: 10px 24px; border-radius: 50px; box-shadow: 0 4px 15px rgba(24,119,242,0.3); }
+        .btn-login-nav::after { display: none; }
+        .btn-login-nav:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(24,119,242,0.4); }
 
-        /* 2. Social Proof (Con số ấn tượng) */
-        .stats { background: #1877f2; color: white; padding: 40px 20px; margin-top: 50px; }
-        .stats-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; gap: 20px; }
-        .stat-item h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 5px; }
-        .stat-item p { font-size: 1.1rem; opacity: 0.9; }
+        /* --- HERO SECTION (ABOVE THE FOLD) --- */
+        .hero { padding: 160px 0 80px; background: var(--light); position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -20%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(24,119,242,0.1) 0%, transparent 70%); border-radius: 50%; }
+        .hero-container { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 50px; align-items: center; position: relative; z-index: 2; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: #e0f2fe; color: #0284c7; padding: 6px 16px; border-radius: 50px; font-weight: 700; font-size: 13px; margin-bottom: 20px; letter-spacing: 1px; }
+        .hero-title { font-size: 56px; font-weight: 900; color: var(--dark); line-height: 1.15; margin-bottom: 25px; letter-spacing: -1.5px; }
+        .hero-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-desc { font-size: 18px; color: var(--text-muted); margin-bottom: 40px; max-width: 500px; }
+        .hero-btns { display: flex; gap: 20px; align-items: center; }
+        .btn-primary { background: var(--secondary); color: white; padding: 18px 40px; border-radius: 50px; font-size: 18px; font-weight: 800; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 10px 25px rgba(255,87,34,0.3); transition: var(--transition); }
+        .btn-primary:hover { background: #e64a19; transform: translateY(-3px); box-shadow: 0 15px 35px rgba(255,87,34,0.4); }
+        .btn-outline { background: transparent; color: var(--dark); border: 2px solid var(--border); padding: 16px 35px; border-radius: 50px; font-size: 18px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 10px; transition: var(--transition); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: white; }
+        .hero-image-wrapper { position: relative; }
+        .hero-image { border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+        .floating-card { position: absolute; background: white; padding: 15px 25px; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 15px; animation: float 6s ease-in-out infinite; }
+        .card-1 { top: 40px; left: -40px; animation-delay: 0s; }
+        .card-2 { bottom: 60px; right: -30px; animation-delay: 3s; }
+        .floating-card i { font-size: 24px; color: var(--success); background: #d1fae5; padding: 12px; border-radius: 50%; }
+        .floating-card div h4 { font-size: 18px; font-weight: 800; color: var(--dark); }
+        .floating-card div p { font-size: 13px; color: var(--text-muted); }
 
-        /* 3. Lợi ích (Features) */
-        .features { max-width: 1100px; margin: 80px auto; padding: 0 20px; text-align: center; }
-        .section-title { font-size: 2.2rem; color: #111; margin-bottom: 15px; font-weight: 800; }
-        .section-subtitle { color: #666; font-size: 1.1rem; margin-bottom: 50px; }
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .feature-card { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; text-align: left; transition: 0.3s; }
-        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
-        .feature-icon { font-size: 40px; margin-bottom: 20px; display: inline-block; background: #e7f3ff; padding: 15px; border-radius: 12px; }
-        .feature-card h3 { font-size: 1.4rem; color: #222; margin-bottom: 15px; }
-        .feature-card p { color: #666; }
+        /* --- SOCIAL PROOF & STATS --- */
+        .trusted-section { padding: 40px 0; background: white; border-bottom: 1px solid var(--border); text-align: center; }
+        .trusted-title { font-size: 14px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; }
+        .logos { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; opacity: 0.6; align-items: center; }
+        .logos span { font-size: 24px; font-weight: 900; color: #94a3b8; letter-spacing: -1px; }
 
-        /* 4. Đánh giá học viên (Testimonials) */
-        .testimonials { background: #f9fafb; padding: 80px 20px; }
-        .testi-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .testi-card { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .testi-text { font-style: italic; color: #555; margin-bottom: 20px; font-size: 1.05rem; }
-        .testi-user { display: flex; align-items: center; gap: 15px; }
-        .testi-user img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
-        .testi-user-info h4 { color: #111; font-size: 1rem; }
-        .testi-user-info span { color: #ff9800; font-size: 14px; font-weight: bold; }
+        .stats-section { padding: 80px 0; background: var(--dark); color: white; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; text-align: center; }
+        .stat-item h3 { font-size: 48px; font-weight: 900; color: var(--secondary); margin-bottom: 10px; }
+        .stat-item p { font-size: 16px; color: #cbd5e1; font-weight: 500; }
 
-        /* 5. Chốt Sale Form (Bottom CTA) */
-        .cta-section { max-width: 900px; margin: 80px auto; padding: 0 20px; }
-        .form-box { background: linear-gradient(135deg, #ffffff 0%, #f4f7fb 100%); padding: 50px; border-radius: 24px; box-shadow: 0 20px 40px rgba(24,119,242,0.1); border: 1px solid #e7f3ff; text-align: center; }
-        .form-box h3 { font-size: 2rem; color: #1877f2; margin-bottom: 15px; font-weight: 800; }
-        .form-box p { color: #555; margin-bottom: 30px; font-size: 1.1rem; }
-        .form-group { margin-bottom: 20px; text-align: left; }
-        .form-group input { width: 100%; padding: 15px; border: 2px solid #e1e8f0; border-radius: 10px; font-size: 16px; transition: 0.3s; }
-        .form-group input:focus { border-color: #1877f2; outline: none; }
-        .btn-submit { background: #ff5722; color: white; padding: 18px; width: 100%; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
-        .btn-submit:hover { background: #e64a19; transform: scale(1.02); }
+        /* --- PAIN POINTS (KÍCH THÍCH NỖI ĐAU) --- */
+        .pain-section { padding: 100px 0; background: white; text-align: center; }
+        .section-title { font-size: 40px; font-weight: 900; color: var(--dark); margin-bottom: 20px; line-height: 1.2; }
+        .section-subtitle { font-size: 18px; color: var(--text-muted); max-width: 700px; margin: 0 auto 60px; }
+        .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .pain-card { background: var(--light); padding: 40px 30px; border-radius: 20px; border-top: 4px solid var(--secondary); transition: var(--transition); }
+        .pain-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .pain-icon { width: 70px; height: 70px; background: #fee2e2; color: #ef4444; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 30px; margin-bottom: 25px; }
+        .pain-card h3 { font-size: 22px; font-weight: 800; color: var(--dark); margin-bottom: 15px; }
+        .pain-card p { color: var(--text-muted); font-size: 16px; }
 
-        footer { text-align: center; padding: 30px; color: #666; font-size: 14px; border-top: 1px solid #eee; }
+        /* --- LEAD MAGNET 1 (THU THẬP EMAIL Ở GIỮA TRANG) --- */
+        .lead-magnet-mid { padding: 80px 0; background: var(--gradient); position: relative; overflow: hidden; }
+        .lead-magnet-mid::after { content: ''; position: absolute; right: 0; bottom: 0; width: 100%; height: 100%; background: url('https://www.transparenttextures.com/patterns/cubes.png'); opacity: 0.1; }
+        .lead-container { max-width: 900px; margin: 0 auto; background: white; border-radius: 24px; padding: 50px; box-shadow: 0 30px 60px rgba(0,0,0,0.2); display: flex; gap: 40px; align-items: center; position: relative; z-index: 2; }
+        .lead-content { flex: 1; }
+        .lead-content h3 { font-size: 32px; font-weight: 900; color: var(--dark); margin-bottom: 15px; }
+        .lead-content p { color: var(--text-muted); margin-bottom: 25px; font-size: 16px; }
+        .lead-form input { width: 100%; padding: 16px 20px; border: 2px solid var(--border); border-radius: 12px; font-size: 16px; margin-bottom: 15px; transition: var(--transition); }
+        .lead-form input:focus { border-color: var(--primary); outline: none; }
+        .btn-submit { width: 100%; padding: 18px; background: var(--secondary); color: white; border: none; border-radius: 12px; font-size: 18px; font-weight: 800; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-submit:hover { background: #e64a19; box-shadow: 0 10px 25px rgba(255,87,34,0.3); }
+        .lead-image { width: 300px; border-radius: 12px; transform: rotate(5deg); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
 
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .hero, .stats-grid { grid-template-columns: 1fr; text-align: center; }
-            .hero-buttons { justify-content: center; }
-            .hero-content h1 { font-size: 2.2rem; }
-            .nav-links { display: none; /* Ẩn menu trên mobile cho gọn, trong thực tế sẽ làm menu burger */ }
+        /* --- FEATURES & METHODOLOGY --- */
+        .features-section { padding: 100px 0; background: var(--light); }
+        .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 60px; align-items: center; margin-bottom: 80px; }
+        .feature-grid:nth-child(even) .feature-content { order: -1; } /* Đảo ngược layout */
+        .feature-img { border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+        .feature-content h3 { font-size: 36px; font-weight: 900; color: var(--dark); margin-bottom: 20px; line-height: 1.2; }
+        .feature-content p { font-size: 18px; color: var(--text-muted); margin-bottom: 30px; }
+        .feature-list li { margin-bottom: 15px; display: flex; align-items: flex-start; gap: 15px; font-size: 16px; font-weight: 600; color: var(--dark); }
+        .feature-list i { background: #e0e7ff; color: var(--primary); padding: 8px; border-radius: 50%; font-size: 14px; margin-top: 2px; }
+
+        /* --- THE FOUNDER / INSTRUCTOR (PERSONALIZED TRUST) --- */
+        .founder-section { padding: 100px 0; background: white; }
+        .founder-container { max-width: 1000px; margin: 0 auto; display: flex; gap: 60px; align-items: center; background: #f0fdfa; padding: 50px; border-radius: 30px; position: relative; }
+        .founder-img-wrap { position: relative; }
+        .founder-img { width: 300px; height: 300px; object-fit: cover; border-radius: 50%; border: 8px solid white; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .founder-badge { position: absolute; bottom: 20px; right: 0; background: var(--primary); color: white; padding: 10px 20px; border-radius: 50px; font-weight: bold; font-size: 14px; box-shadow: 0 10px 20px rgba(24,119,242,0.3); }
+        .founder-info h3 { font-size: 32px; font-weight: 900; color: var(--dark); margin-bottom: 5px; }
+        .founder-info h4 { color: var(--primary); font-size: 16px; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; margin-bottom: 25px; }
+        .founder-info p { color: var(--text-muted); font-size: 17px; margin-bottom: 20px; }
+        .founder-signature { font-family: 'Brush Script MT', cursive; font-size: 32px; color: var(--dark); margin-top: 20px; }
+
+        /* --- TESTIMONIALS --- */
+        .testimonial-section { padding: 100px 0; background: var(--dark); color: white; text-align: center; }
+        .testimonial-section .section-title { color: white; }
+        .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
+        .testi-card { background: var(--dark-light); padding: 40px 30px; border-radius: 20px; text-align: left; position: relative; }
+        .testi-card::before { content: '\201C'; position: absolute; top: 20px; right: 30px; font-size: 80px; color: rgba(255,255,255,0.05); font-family: Georgia, serif; }
+        .stars { color: #fbbf24; font-size: 18px; margin-bottom: 20px; }
+        .testi-text { font-size: 16px; line-height: 1.8; color: #cbd5e1; margin-bottom: 30px; font-style: italic; }
+        .user-info { display: flex; align-items: center; gap: 15px; }
+        .user-info img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+        .user-info h5 { font-size: 18px; font-weight: 700; color: white; }
+        .user-info span { font-size: 13px; color: #94a3b8; }
+
+        /* --- FAQ SECTION --- */
+        .faq-section { padding: 100px 0; background: var(--light); }
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { background: white; margin-bottom: 15px; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
+        .faq-question { padding: 25px 30px; font-size: 18px; font-weight: 700; color: var(--dark); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: var(--transition); }
+        .faq-question:hover { color: var(--primary); background: #f8fafc; }
+        .faq-answer { padding: 0 30px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; color: var(--text-muted); font-size: 16px; }
+        .faq-item.active .faq-answer { padding: 0 30px 25px; max-height: 500px; }
+        .faq-item.active .faq-question i { transform: rotate(180deg); color: var(--primary); }
+
+        /* --- FINAL CTA --- */
+        .final-cta { padding: 120px 0; text-align: center; background: url('https://images.unsplash.com/photo-1513258496099-48168024aec0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; position: relative; }
+        .final-cta::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); }
+        .cta-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; color: white; }
+        .cta-content h2 { font-size: 48px; font-weight: 900; margin-bottom: 20px; line-height: 1.2; }
+        .cta-content p { font-size: 20px; color: #cbd5e1; margin-bottom: 40px; }
+
+        /* --- FOOTER --- */
+        footer { background: var(--dark); color: #94a3b8; padding: 60px 0 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 50px; margin-bottom: 50px; }
+        .footer-col h3 { font-size: 24px; color: white; font-weight: 900; margin-bottom: 20px; }
+        .footer-col h4 { font-size: 18px; color: white; font-weight: 700; margin-bottom: 20px; }
+        .footer-col p { margin-bottom: 15px; font-size: 15px; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: #94a3b8; font-size: 15px; }
+        .footer-links a:hover { color: white; padding-left: 5px; }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 14px; }
+
+        @keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0); } }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-container, .lead-container, .founder-container { grid-template-columns: 1fr; flex-direction: column; text-align: center; }
+            .hero-title { font-size: 45px; }
+            .hero-desc { margin: 0 auto 40px; }
+            .hero-btns { justify-content: center; }
+            .feature-grid, .feature-grid:nth-child(even) .feature-content { grid-template-columns: 1fr; order: 0; text-align: center; }
+            .feature-list li { justify-content: center; }
+            .pain-grid, .testi-grid, .stats-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <header>
+    <header id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">ToeicHolic</a>
+            <a href="index.html" class="logo"><i class="fas fa-graduation-cap"></i> ToeicHolic</a>
             <ul class="nav-links">
-                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="index.html" class="active">Trang Chủ</a></li>
                 <li><a href="test.html">Test Năng Lực</a></li>
                 <li><a href="courses.html">Khóa Học</a></li>
                 <li><a href="blog.html">Blog</a></li>
-                <li><a href="login.html" class="btn-login">Đăng Nhập</a></li>
+                <li><a href="login.html" class="btn-login-nav">Đăng Nhập</a></li>
             </ul>
         </div>
     </header>
 
-    <div class="hero">
-        <div class="hero-content">
-            <h1>Chinh phục <span>TOEIC 800+</span> dễ dàng hơn bạn nghĩ</h1>
-            <p>Không cần nhồi nhét. Hệ thống học tập tự động hóa của chúng tôi sẽ phân tích năng lực và vạch ra lộ trình 30 ngày dành riêng cho bạn.</p>
-            <div class="hero-buttons">
-                <a href="#form-section" class="btn-primary">Nhận Ebook Miễn Phí</a>
-                <a href="test.html" class="btn-secondary">Test Trình Độ Ngay</a>
-            </div>
-        </div>
-        <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Học viên ToeicHolic">
-        </div>
-    </div>
-
-    <div class="stats">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <h2>10.000+</h2>
-                <p>Học viên thành công</p>
-            </div>
-            <div class="stat-item">
-                <h2>98%</h2>
-                <p>Đạt điểm mục tiêu</p>
-            </div>
-            <div class="stat-item">
-                <h2>30 Ngày</h2>
-                <p>Lộ trình bứt phá</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="features">
-        <h2 class="section-title">Tại sao chọn ToeicHolic?</h2>
-        <p class="section-subtitle">Phương pháp học tập thông minh dựa trên công nghệ Data Analysis</p>
-        
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🎯</div>
-                <h3>Lộ Trình Cá Nhân Hóa</h3>
-                <p>Hệ thống tự động phân tích lỗ hổng kiến thức của bạn qua bài Test đầu vào để tạo ra giáo trình độc nhất.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📚</div>
-                <h3>600 Từ Vựng Cốt Lõi</h3>
-                <p>Học đúng trọng tâm với bộ từ vựng được ETS sử dụng nhiều nhất trong 5 năm qua. Tạm biệt việc học lan man.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>Mẹo Giải Đề 5 Giây</h3>
-                <p>Nắm trọn các bí kíp tránh bẫy Part 5 & 7 từ chuyên gia, giúp bạn tăng tốc độ làm bài lên gấp đôi.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="testimonials">
-        <h2 class="section-title" style="text-align: center;">Học viên nói gì về chúng tôi?</h2>
-        <p class="section-subtitle" style="text-align: center;">Những câu chuyện người thật việc thật</p>
-
-        <div class="testi-grid">
-            <div class="testi-card">
-                <p class="testi-text">"Mình bị mất gốc hoàn toàn, nhưng chỉ sau 1 tháng cày cuốc theo lộ trình web vạch ra, mình đã đạt 750 TOEIC để kịp xét tốt nghiệp UEH!"</p>
-                <div class="testi-user">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User">
-                    <div class="testi-user-info">
-                        <h4>Nguyễn Mai Thu</h4>
-                        <span>★ 750 TOEIC</span>
-                    </div>
+    <section class="hero">
+        <div class="container hero-container">
+            <div>
+                <div class="hero-badge"><i class="fas fa-star"></i> Nền tảng luyện thi TOEIC số 1 VN</div>
+                <h1 class="hero-title">Đột Phá Điểm Số <br><span>TOEIC 800+</span> Trong 30 Ngày</h1>
+                <p class="hero-desc">Hệ thống học tập ứng dụng AI và công nghệ Tự động hóa (Automation) duy nhất giúp người mất gốc tăng 300 điểm chỉ sau 1 tháng ôn luyện.</p>
+                <div class="hero-btns">
+                    <a href="courses.html" class="btn-primary">Xem Lộ Trình Học <i class="fas fa-arrow-right"></i></a>
+                    <a href="test.html" class="btn-outline"><i class="fas fa-stopwatch"></i> Thi Thử Miễn Phí</a>
                 </div>
             </div>
-            <div class="testi-card">
-                <p class="testi-text">"Hệ thống test năng lực của ToeicHolic cực kỳ chính xác. Phân tích rõ mình sai chỗ nào để sửa. 299k cho khóa học này là quá rẻ!"</p>
-                <div class="testi-user">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
-                    <div class="testi-user-info">
-                        <h4>Trần Minh Hoàng</h4>
-                        <span>★ 820 TOEIC</span>
-                    </div>
+            <div class="hero-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Học viên ToeicHolic" class="hero-image">
+                <div class="floating-card card-1">
+                    <i class="fas fa-check"></i>
+                    <div><h4>Mục tiêu 800+</h4><p>Cam kết đầu ra</p></div>
+                </div>
+                <div class="floating-card card-2">
+                    <i class="fas fa-shield-alt"></i>
+                    <div><h4>MFA Security</h4><p>Bảo mật dữ liệu 100%</p></div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="cta-section" id="form-section">
-        <div class="form-box">
-            <h3>🎁 Quà Tặng Độc Quyền</h3>
-            <p>Để lại Email để nhận ngay bộ Ebook "Bẻ Khóa TOEIC" và mã giảm giá 50% khóa học.</p>
+    <section class="trusted-section">
+        <div class="container">
+            <h4 class="trusted-title">Được tin dùng bởi hơn 5,000+ sinh viên từ các trường Đại học top đầu</h4>
+            <div class="logos">
+                <span>UEH</span>
+                <span>NEU</span>
+                <span>FTU</span>
+                <span>VNU</span>
+                <span>RMIT</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="pain-section">
+        <div class="container">
+            <h2 class="section-title">Bạn Đang Gặp Phải Vấn Đề Nào?</h2>
+            <p class="section-subtitle">Đừng để rào cản tiếng Anh cản bước cơ hội tốt nghiệp đại học và thăng tiến sự nghiệp của bạn.</p>
             
-            <form id="homeForm">
-                <input type="hidden" name="Nguồn" value="Trang Chủ Cuối Trang">
-                <div class="form-group">
-                    <input type="text" name="name" required placeholder="Nhập Họ và Tên của bạn...">
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <div class="pain-icon"><i class="fas fa-brain"></i></div>
+                    <h3>Học Trước Quên Sau</h3>
+                    <p>Nhồi nhét 3000 từ vựng nhưng vào phòng thi não bộ hoàn toàn "trống rỗng". Không biết cách áp dụng quy tắc 80/20.</p>
                 </div>
-                <div class="form-group">
-                    <input type="email" name="email" required placeholder="Nhập địa chỉ Email...">
+                <div class="pain-card">
+                    <div class="pain-icon"><i class="fas fa-deaf"></i></div>
+                    <h3>Nghe Như "Vịt Nghe Sấm"</h3>
+                    <p>Bị "choáng" bởi tốc độ đọc, nuốt âm, nối âm của người bản xứ trong Part 3 & 4. Dịch chậm hơn tốc độ máy phát.</p>
                 </div>
-                <button type="submit" id="homeSubmitBtn" class="btn-submit">Gửi Tài Liệu Cho Tôi 🚀</button>
-            </form>
-
-            <script>
-                document.getElementById('homeForm').addEventListener('submit', function(e) {
-                    e.preventDefault(); // Chặn việc nhảy sang trang trắng
-                    let btn = document.getElementById('homeSubmitBtn');
-                    btn.innerHTML = "Đang xử lý... ⏳";
-                    btn.disabled = true;
-
-                    // ĐIỀN LINK WEBHOOK MAKE.COM CỦA BẠN VÀO DƯỚI ĐÂY
-                    fetch("https://hook.eu1.make.com/sixcuf27vlxmx7bccjkrjfrylef7kdr6", {
-                        method: "POST",
-                        body: new FormData(this)
-                    }).then(() => {
-                        window.location.href = "thanks.html"; // Tự động nhảy sang trang Cảm ơn chốt sale
-                    });
-                });
-            </script>
+                <div class="pain-card">
+                    <div class="pain-icon"><i class="fas fa-clock"></i></div>
+                    <h3>Áp Lực Thời Gian Part 7</h3>
+                    <p>Cắm đầu dịch từng chữ dẫn đến việc không bao giờ làm kịp 54 câu đọc hiểu. Thiếu chiến thuật Skimming & Scanning.</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <section class="lead-magnet-mid">
+        <div class="container">
+            <div class="lead-container">
+                <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Sách TOEIC" class="lead-image">
+                <div class="lead-content">
+                    <h3>🎁 Tặng Miễn Phí Bộ Ebook "Hack Điểm 800+"</h3>
+                    <p>Nhập email để nhận ngay hệ thống 500 từ vựng cốt lõi và lộ trình luyện đề chi tiết dành riêng cho bạn.</p>
+                    
+                    <form id="leadForm1" class="lead-form">
+                        <input type="hidden" name="Nguồn" value="Nhận Ebook Trang Chủ">
+                        <input type="text" name="name" required placeholder="Họ và Tên của bạn...">
+                        <input type="email" name="email" required placeholder="Địa chỉ Email nhận sách...">
+                        <button type="submit" id="btnLead1" class="btn-submit">Nhận Tài Liệu Ngay <i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center; margin-bottom: 80px;">Phương Pháp Đào Tạo Khác Biệt</h2>
+            
+            <div class="feature-grid">
+                <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="AI Scoring" class="feature-img">
+                <div class="feature-content">
+                    <h3>Công Nghệ Chấm Chữa Bằng AI</h3>
+                    <p>Không chỉ báo đúng/sai. Trí tuệ nhân tạo của chúng tôi sẽ phân tích từng lỗi sai ngữ pháp, chỉ ra bẫy của ETS và đề xuất bài giảng tương ứng.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Chấm điểm tức thì sau 1 giây nộp bài</li>
+                        <li><i class="fas fa-check"></i> Phân tích biểu đồ năng lực theo từng Part</li>
+                        <li><i class="fas fa-check"></i> Tự động tạo bài tập khắc phục điểm yếu</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-content">
+                    <h3>Lộ Trình Cá Nhân Hóa (Automation)</h3>
+                    <p>Mỗi học viên có một vạch xuất phát khác nhau. Hệ thống tự động hóa sẽ tự động sắp xếp lại giáo trình mỗi ngày dựa trên lịch sử làm bài của bạn.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> 50 Bộ đề ETS cập nhật sát đề thi thật 2026</li>
+                        <li><i class="fas fa-check"></i> Ứng dụng Spaced Repetition (Lặp lại ngắt quãng)</li>
+                        <li><i class="fas fa-check"></i> Giao diện thi thử chuẩn 100% như thi máy IIG</li>
+                    </ul>
+                </div>
+                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Lộ trình học" class="feature-img">
+            </div>
+        </div>
+    </section>
+
+    <section class="founder-section">
+        <div class="container">
+            <div class="founder-container">
+                <div class="founder-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Nguyễn Quốc Huy" class="founder-img">
+                    <div class="founder-badge">Chuyên gia EdTech</div>
+                </div>
+                <div class="founder-info">
+                    <h4>Đội ngũ sáng lập</h4>
+                    <h3>Nguyễn Quốc Huy</h3>
+                    <p><b>CEO & Founder ToeicHolic</b></p>
+                    <p>Là một chuyên gia ứng dụng Công nghệ Thông tin (BIT) vào Giáo dục, thầy Huy hiểu rằng việc học ngoại ngữ truyền thống đang quá lãng phí thời gian. Với nền tảng kiến thức về Hệ thống Thông tin Quản lý và Bảo mật An toàn thông tin, ToeicHolic được xây dựng với mục tiêu:</p>
+                    <p><i>"Cung cấp một nền tảng luyện thi chuẩn xác về mặt sư phạm, tự động hóa về mặt công nghệ, và an toàn tuyệt đối về mặt dữ liệu cá nhân (tích hợp hệ thống bảo mật MFA) cho mọi sinh viên."</i></p>
+                    <div class="founder-signature">Quoc Huy</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>5000+</h3>
+                    <p>Học viên đăng ký</p>
+                </div>
+                <div class="stat-item">
+                    <h3>810</h3>
+                    <p>Điểm TOEIC trung bình</p>
+                </div>
+                <div class="stat-item">
+                    <h3>50+</h3>
+                    <p>Đề thi ETS Độc Quyền</p>
+                </div>
+                <div class="stat-item">
+                    <h3>98%</h3>
+                    <p>Học viên đạt mục tiêu</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonial-section">
+        <div class="container">
+            <h2 class="section-title">Hàng Ngàn Sinh Viên Đã Thành Công</h2>
+            <div class="testi-grid">
+                <div class="testi-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="testi-text">"Là sinh viên UEH khoa Kinh Doanh, em rất áp lực chuẩn đầu ra. Nhờ khóa Cấp tốc 30 ngày của ToeicHolic, em tăng từ 450 lên 830 điểm một cách thần kỳ. Web giải thích lỗi sai quá đỉnh!"</p>
+                    <div class="user-info">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User">
+                        <div>
+                            <h5>Mai Lan</h5>
+                            <span>Sinh viên K47 - 830 TOEIC</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="testi-text">"Hệ thống Automation gửi bài tập nhắc nhở vào Email mỗi ngày giúp một đứa lười như mình không thể bỏ học. Phương pháp Dictation chép chính tả đúng là cứu tinh cho phần Listening của mình."</p>
+                    <div class="user-info">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+                        <div>
+                            <h5>Tuấn Anh</h5>
+                            <span>Kỹ sư IT - 750 TOEIC</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                    <p class="testi-text">"Web giao diện rất mượt, làm test trên điện thoại hay máy tính đều giống y như thi thật. Lời khuyên là các bạn nên mua Gói Pro để được AI phân tích phổ điểm, cực kỳ đáng tiền."</p>
+                    <div class="user-info">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User">
+                        <div>
+                            <h5>Bích Ngọc</h5>
+                            <span>Nhân viên Marketing - 900 TOEIC</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container faq-container">
+            <h2 class="section-title" style="text-align: center; margin-bottom: 50px;">Câu Hỏi Thường Gặp</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Khóa học này dành cho ai? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p style="padding-top: 10px;">ToeicHolic thiết kế lộ trình cá nhân hóa. Dù bạn là người mất gốc hoàn toàn (cần học lại từ vựng, ngữ pháp cơ bản) hay người đã có nền tảng (cần luyện đề chuyên sâu), AI của chúng tôi sẽ thiết kế bài học phù hợp nhất.</p></div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Tôi có được cam kết đầu ra không? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p style="padding-top: 10px;">Có! Nếu bạn hoàn thành 100% lộ trình bài giảng và bài tập được giao mà không đạt mục tiêu (tối thiểu 600+), chúng tôi cam kết hoàn tiền 100% hoặc hỗ trợ học lại miễn phí trọn đời.</p></div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Làm sao để đăng ký và thanh toán? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p style="padding-top: 10px;">Bạn chỉ cần bấm vào mục "Khóa Học", chọn gói phù hợp và quét mã QR thanh toán. Nền tảng tự động hóa của chúng tôi sẽ kích hoạt tài khoản và gửi thông tin đăng nhập vào Email của bạn chỉ trong vòng 1 phút.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <div class="container cta-content">
+            <h2>Sẵn Sàng Chinh Phục TOEIC Chưa?</h2>
+            <p>Đừng chần chừ nữa! Chương trình FLASH SALE giảm 50% khóa học Cấp Tốc chỉ áp dụng cho 100 lượt đăng ký trong ngày hôm nay.</p>
+            <div style="display: flex; gap: 20px; justify-content: center;">
+                <a href="courses.html" class="btn-primary" style="padding: 20px 50px; font-size: 20px;">Đăng Ký Khóa Học Ngay</a>
+            </div>
+        </div>
+    </section>
 
     <footer>
-        <p>© 2026 ToeicHolic. Hệ thống đào tạo TOEIC hàng đầu.</p>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3 style="color: var(--primary);"><i class="fas fa-graduation-cap"></i> ToeicHolic</h3>
+                    <p>Nền tảng ứng dụng Marketing & Sales Automation vào giáo dục. Cung cấp giải pháp luyện thi TOEIC ứng dụng AI chấm điểm và bảo mật dữ liệu hàng đầu.</p>
+                    <div style="margin-top: 20px; display: flex; gap: 15px; font-size: 20px;">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Về Chúng Tôi</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Giới thiệu nền tảng</a></li>
+                        <li><a href="#">Đội ngũ giáo viên</a></li>
+                        <li><a href="#">Câu chuyện học viên</a></li>
+                        <li><a href="#">Chính sách bảo mật</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Tài Nguyên</h4>
+                    <ul class="footer-links">
+                        <li><a href="blog.html">Blog chia sẻ kiến thức</a></li>
+                        <li><a href="test.html">Test năng lực miễn phí</a></li>
+                        <li><a href="#">Thư viện Ebook TOEIC</a></li>
+                        <li><a href="#">Chữa đề ETS 2026</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Đăng Ký Nhận Bản Tin</h4>
+                    <p>Nhận bài tập và mẹo thi mỗi tuần qua Email.</p>
+                    <form id="leadForm2" style="display: flex; margin-top: 15px;">
+                        <input type="hidden" name="Nguồn" value="Nhận Bản Tin Footer">
+                        <input type="email" name="email" required placeholder="Email của bạn..." style="width: 100%; padding: 12px; border: none; border-radius: 8px 0 0 8px; outline: none;">
+                        <button type="submit" id="btnLead2" style="background: var(--primary); color: white; border: none; padding: 0 20px; border-radius: 0 8px 8px 0; cursor: pointer; font-weight: bold;">Gửi</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 ToeicHolic. Đồ án môn học Marketing & Sales Automation.</p>
+            </div>
+        </div>
     </footer>
 
+    <script>
+        // 1. Hiệu ứng Navbar khi cuộn trang
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+                header.style.padding = '5px 0';
+            } else {
+                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.05)';
+                header.style.padding = '0';
+            }
+        });
+
+        // 2. Logic mở/đóng FAQ
+        const faqItems = document.querySelectorAll('.faq-question');
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                // Đóng các câu khác
+                document.querySelectorAll('.faq-item').forEach(faq => {
+                    if(faq !== parent) faq.classList.remove('active');
+                });
+                parent.classList.toggle('active');
+            });
+        });
+
+        // 3. Logic Gửi Form Nhận Ebook (Tích hợp Webhook Make.com)
+        const makeWebhookUrl = "https://hook.eu1.make.com/sixcuf27vlxmx7bccjkrjfrylef7kdr6";
+
+        // Form giữa trang
+        document.getElementById('leadForm1').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let btn = document.getElementById('btnLead1');
+            let ogText = btn.innerHTML;
+            btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i> Đang xử lý...";
+            btn.disabled = true;
+
+            fetch(makeWebhookUrl, {
+                method: "POST",
+                body: new FormData(this)
+            }).then(() => {
+                window.location.href = "thanks.html"; // Chuyển sang trang Cảm ơn/Upsell
+            }).catch(() => {
+                alert("Lỗi kết nối. Vui lòng thử lại!");
+                btn.innerHTML = ogText;
+                btn.disabled = false;
+            });
+        });
+
+        // Form bản tin Footer
+        document.getElementById('leadForm2').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let btn = document.getElementById('btnLead2');
+            btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i>";
+            btn.disabled = true;
+
+            fetch(makeWebhookUrl, {
+                method: "POST",
+                body: new FormData(this)
+            }).then(() => {
+                alert("Đăng ký nhận bản tin thành công! Cảm ơn bạn.");
+                btn.innerHTML = "Gửi";
+                btn.disabled = false;
+                this.reset();
+            }).catch(() => {
+                alert("Lỗi kết nối.");
+                btn.innerHTML = "Gửi";
+                btn.disabled = false;
+            });
+        });
+    </script>
 </body>
 </html>

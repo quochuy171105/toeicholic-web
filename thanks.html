@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6QWETXMPE"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -12,43 +12,147 @@
 
         gtag('config', 'G-B6QWETXMPE');
     </script>
-    <title>Thanh Toán - ToeicHolic</title>
+    <title>Thành Công! Đang gửi tài liệu... | ToeicHolic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; text-align: center; padding: 40px 20px; }
-        .checkout-box { background: white; max-width: 500px; margin: 0 auto; padding: 40px; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-top: 5px solid #4CAF50; }
-        h1 { color: #4CAF50; margin-bottom: 10px; }
-        .offer { background: #fff3e0; border: 1px dashed #ff9800; padding: 15px; border-radius: 8px; margin: 20px 0; color: #d84315; font-weight: bold; }
-        .qr-code { width: 250px; height: 250px; background: #eee; margin: 20px auto; display: flex; align-items: center; justify-content: center; border-radius: 10px; }
-        .instruction { font-size: 14px; color: #666; margin-bottom: 20px; line-height: 1.5; text-align: left; background: #f9f9f9; padding: 15px; border-radius: 6px; }
-        .price { font-size: 24px; color: #e53935; font-weight: bold; margin-bottom: 20px; display: block; }
+        /* CSS Chuẩn Đồng Bộ */
+        :root { --primary: #1877f2; --primary-dark: #166fe5; --secondary: #ff5722; --dark: #1a1a1a; --light: #f4f7fb; --text: #333; --success: #10b981; --warning: #f59e0b; --transition: 0.3s ease; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--light); color: var(--text); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        a { text-decoration: none; transition: var(--transition); }
+
+        /* Navbar Đồng Bộ */
+        header { background-color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .nav-container { max-width: 1100px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 26px; font-weight: 900; color: var(--primary); text-decoration: none; letter-spacing: -0.5px; }
+        .nav-links { list-style: none; display: flex; gap: 25px; align-items: center; }
+        .nav-links a { text-decoration: none; color: #444; font-weight: 600; font-size: 15px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+        .btn-login-nav { background-color: var(--primary); color: white !important; padding: 10px 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(24,119,242,0.2); }
+        .btn-login-nav:hover { background-color: var(--primary-dark); transform: translateY(-2px); }
+
+        /* Phần 1: Lời Cảm Ơn (Thỏa mãn khách hàng) */
+        .thankyou-wrapper { text-align: center; padding: 60px 20px 40px; background: white; border-bottom: 1px solid #e1e8f0; }
+        .thankyou-container { max-width: 800px; margin: 0 auto; }
+        .success-icon { width: 100px; height: 100px; background: #d1fae5; color: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 50px; margin: 0 auto 25px; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2); animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .thankyou-wrapper h1 { font-size: 36px; color: var(--dark); font-weight: 900; margin-bottom: 15px; }
+        .thankyou-wrapper p { font-size: 18px; color: #555; margin-bottom: 30px; }
+        .next-steps { display: flex; justify-content: center; gap: 20px; text-align: left; background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e1e8f0; display: inline-flex; }
+        .step-item { display: flex; align-items: center; gap: 15px; font-size: 15px; font-weight: 600; color: var(--dark); }
+        .step-item i { color: var(--primary); font-size: 20px; }
+        .step-item span { color: var(--text); font-weight: normal; font-size: 14px; display: block; }
+
+        /* Phần 2: Khối Upsell (The One-Time Offer) */
+        .upsell-section { padding: 60px 20px; flex-grow: 1; }
+        .upsell-container { max-width: 900px; margin: 0 auto; background: linear-gradient(135deg, #fff 0%, #fff4f1 100%); border: 3px dashed var(--secondary); border-radius: 20px; padding: 50px 40px; position: relative; box-shadow: 0 20px 50px rgba(255, 87, 34, 0.15); text-align: center; }
+        
+        .stop-badge { position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: #ef4444; color: white; padding: 10px 30px; border-radius: 50px; font-weight: 900; font-size: 18px; box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3); display: flex; align-items: center; gap: 10px; animation: pulseRed 2s infinite; }
+        
+        .upsell-title { font-size: 32px; font-weight: 900; color: var(--dark); margin-top: 20px; margin-bottom: 15px; line-height: 1.3; }
+        .upsell-title span { color: var(--secondary); }
+        .upsell-desc { font-size: 17px; color: #555; margin-bottom: 30px; }
+        
+        .upsell-features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; text-align: left; margin-bottom: 40px; }
+        .u-feature { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: flex; gap: 15px; align-items: flex-start; }
+        .u-feature i { color: var(--success); font-size: 24px; margin-top: 2px; }
+        .u-feature h4 { color: var(--dark); font-size: 16px; margin-bottom: 5px; }
+        .u-feature p { color: #666; font-size: 14px; }
+
+        .price-box { background: white; display: inline-block; padding: 15px 40px; border-radius: 50px; margin-bottom: 30px; border: 2px solid var(--border); }
+        .price-box .old-price { text-decoration: line-through; color: #999; font-size: 18px; margin-right: 10px; font-weight: 600; }
+        .price-box .new-price { color: var(--secondary); font-size: 28px; font-weight: 900; }
+
+        .btn-grab-offer { display: inline-flex; align-items: center; gap: 10px; background: var(--secondary); color: white; padding: 18px 50px; border-radius: 50px; font-size: 20px; font-weight: 800; box-shadow: 0 10px 25px rgba(255, 87, 34, 0.4); transition: var(--transition); border: none; cursor: pointer; }
+        .btn-grab-offer:hover { background: #e64a19; transform: translateY(-5px) scale(1.02); box-shadow: 0 15px 35px rgba(255, 87, 34, 0.5); }
+        
+        .no-thanks { display: block; margin-top: 25px; color: #999; font-size: 15px; text-decoration: underline; cursor: pointer; }
+        .no-thanks:hover { color: var(--text); }
+
+        @keyframes pop { 0% { transform: scale(0); } 80% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        @keyframes pulseRed { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
+
+        @media (max-width: 768px) { .upsell-features, .next-steps { grid-template-columns: 1fr; display: flex; flex-direction: column; } .upsell-title { font-size: 26px; } .nav-links { display: none; } }
     </style>
 </head>
 <body>
 
-    <div class="checkout-box">
-        <h1>🎉 Chúc mừng bạn đã đăng ký thành công!</h1>
-        <p>Tài liệu Ebook / Bảng điểm Test của bạn đang được hệ thống tự động gửi vào Email.</p>
-
-        <div class="offer">
-            🔥 ƯU ĐÃI ĐỘC QUYỀN (Chỉ hiện 1 lần) 🔥<br>
-            Nâng cấp lên Khóa học TOEIC Cấp tốc 30 Ngày với giá sốc!
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">ToeicHolic</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="test.html">Test Năng Lực</a></li>
+                <li><a href="courses.html">Khóa Học</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="login.html" class="btn-login-nav">Đăng Nhập</a></li>
+            </ul>
         </div>
+    </header>
 
-        <span class="price">Chỉ 299.000 VNĐ</span>
-
-        <div class="qr-code">
-            [ẢNH QR CODE MOMO/BANKING CỦA NHÓM]
+    <section class="thankyou-wrapper">
+        <div class="thankyou-container">
+            <div class="success-icon"><i class="fas fa-check"></i></div>
+            <h1>Tuyệt Vời! Yêu cầu đã được tiếp nhận.</h1>
+            <p>Hệ thống tự động của ToeicHolic đang đóng gói tài liệu (Ebook/Bảng điểm) và gửi thẳng vào hòm thư của bạn. Vui lòng làm theo các bước sau:</p>
+            
+            <div class="next-steps">
+                <div class="step-item">
+                    <i class="fas fa-envelope-open-text"></i>
+                    <div>
+                        Kiểm tra Email
+                        <span>Trong Hộp thư đến hoặc Spam (Mất khoảng 1-3 phút)</span>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <i class="fas fa-download"></i>
+                    <div>
+                        Tải Tài Liệu
+                        <span>Click vào link Google Drive đính kèm trong thư</span>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="instruction">
-            <b>Hướng dẫn thanh toán:</b><br>
-            1. Mở App Ngân hàng hoặc MoMo quét mã QR trên.<br>
-            2. Nội dung chuyển khoản: <b>[SĐT của bạn] - TOEIC30</b><br>
-            3. Hệ thống sẽ tự động kích hoạt tài khoản học viện và gửi link học qua email cho bạn trong vòng 5 phút sau khi nhận được thanh toán.
+    <section class="upsell-section">
+        <div class="upsell-container">
+            <div class="stop-badge"><i class="fas fa-hand-paper"></i> KHOAN ĐÃ! BẠN CÓ 1 ƯU ĐÃI ĐỘC QUYỀN</div>
+            
+            <h2 class="upsell-title">Trong lúc chờ Email tới, hãy xem <span>Cơ Hội Nâng Trình TOEIC</span> này nhé!</h2>
+            <p class="upsell-desc">Tài liệu Ebook rất tốt, nhưng nó đòi hỏi bạn phải tự bơi. Nếu bạn muốn đạt mục tiêu TOEIC 800+ nhanh nhất, hãy để Công nghệ AI của ToeicHolic dẫn đường.</p>
+
+            <div class="upsell-features">
+                <div class="u-feature">
+                    <i class="fas fa-robot"></i>
+                    <div>
+                        <h4>AI Chấm Chữa Chi Tiết</h4>
+                        <p>Hệ thống tự động phân tích lỗi sai và giải thích cặn kẽ từng bẫy của đề ETS 2026.</p>
+                    </div>
+                </div>
+                <div class="u-feature">
+                    <i class="fas fa-route"></i>
+                    <div>
+                        <h4>Lộ Trình Cá Nhân Hóa</h4>
+                        <p>Bài tập mỗi ngày được tự động phân bổ dựa trên điểm yếu của chính bạn.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="price-box">
+                <span class="old-price">Giá Gốc: 800.000đ</span>
+                <span class="new-price">Ưu đãi hôm nay: 299.000đ</span>
+            </div>
+
+            <br>
+            <a href="courses.html" class="btn-grab-offer">Sở Hữu Khóa "Cấp Tốc PRO" Ngay <i class="fas fa-rocket"></i></a>
+            
+            <a href="index.html" class="no-thanks">Không, cảm ơn. Tôi chỉ muốn đọc Ebook miễn phí thôi.</a>
         </div>
+    </section>
 
-        <a href="index.html" style="color: #1877f2; text-decoration: none; font-weight: bold;">← Quay lại Trang Chủ</a>
-    </div>
+    <footer style="background: var(--dark); color: white; text-align: center; padding: 20px; margin-top: auto;">
+        <p>© 2026 ToeicHolic. Đồ án môn học Marketing & Sales Automation.</p>
+    </footer>
 
 </body>
 </html>
