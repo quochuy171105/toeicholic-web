@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kiểm Tra Năng Lực TOEIC Đầu Vào | ToeicHolic</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6QWETXMPE"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-B6QWETXMPE"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -24,6 +23,11 @@
         header { background-color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .nav-container { max-width: 1100px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 26px; font-weight: 900; color: #1877f2; text-decoration: none; letter-spacing: -0.5px; }
+        
+        /* Menu Toggle Button cho Mobile */
+        .menu-toggle { display: none; font-size: 26px; color: var(--primary); cursor: pointer; transition: 0.3s; }
+        .menu-toggle:hover { color: var(--secondary); }
+
         .nav-links { list-style: none; display: flex; gap: 25px; align-items: center; }
         .nav-links a { text-decoration: none; color: #444; font-weight: 600; font-size: 15px; transition: color 0.3s; }
         .nav-links a:hover { color: #1877f2; }
@@ -87,7 +91,39 @@
         .explanation { display: none; background: #f8f9fa; border-left: 4px solid var(--primary); padding: 15px; margin-top: 15px; border-radius: 0 8px 8px 0; font-size: 15px; color: #444; }
         .explanation strong { color: var(--primary); }
 
-        @media (max-width: 768px) { .test-hero h1 { font-size: 26px; } .question-card { padding: 20px; } }
+        /* Responsive Mobile Menu & Layout */
+        @media (max-width: 992px) { 
+            .test-hero h1 { font-size: 26px; } 
+            .question-card { padding: 20px; } 
+            
+            /* Giao diện Menu Mobile */
+            .menu-toggle { display: block; }
+            .nav-links {
+                display: none; 
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                padding: 20px 0;
+                gap: 15px;
+                text-align: center;
+                border-top: 1px solid var(--border);
+            }
+            .nav-links.active {
+                display: flex;
+                animation: slideDownMenu 0.3s ease-out;
+            }
+            .btn-login { display: inline-block; width: max-content; margin: 0 auto; }
+        }
+
+        @keyframes slideDownMenu {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -95,7 +131,10 @@
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">ToeicHolic</a>
-            <ul class="nav-links">
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="navMenu">
                 <li><a href="index.html">Trang Chủ</a></li>
                 <li><a href="test.html" style="color:#1877f2;">Test Năng Lực</a></li>
                 <li><a href="courses.html">Khóa Học</a></li>
@@ -230,6 +269,11 @@
     </footer>
 
     <script>
+        // HÀM XỬ LÝ NÚT BẤM MENU MOBILE
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
         // 1. Logic Giao diện: Đổi màu khi click chọn đáp án
         const optionLabels = document.querySelectorAll('.option-label');
         optionLabels.forEach(label => {
