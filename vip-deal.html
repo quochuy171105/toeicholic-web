@@ -273,7 +273,7 @@
             btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i> Đang xử lý...";
             btn.disabled = true;
 
-            let qrUrl = `https://img.vietqr.io/image/MB-0934020967-compact2.png?amount=1000&addInfo=TOEIC%20${phoneNum}&accountName=NGUYEN%20QUOC%20HUY`;
+            let qrUrl = `https://img.vietqr.io/image/VCB-1031359137-compact2.png?amount=1000&addInfo=TOEIC%20${phoneNum}&accountName=NGUYEN%20QUOC%20HUY`;
             
             fetch(makeWebhookUrl, { method: "POST", body: new FormData(this) }).then(() => {
                 document.getElementById('formStep').style.display = 'none';
