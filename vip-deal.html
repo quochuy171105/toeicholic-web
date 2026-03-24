@@ -6,21 +6,6 @@
     <title>Xác Nhận Ưu Đãi Độc Quyền | ToeicHolic</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <script>
-        // Kiểm tra xem trên đường link có chìa khóa "?token=secret1k" không
-        const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get('token');
-
-        if (token === 'secret1k') {
-            // Nếu có chìa khóa: Cho phép vào và LẬP TỨC XÓA CHÌA KHÓA trên thanh địa chỉ
-            // Việc này khiến khách nếu bấm sang trang khác rồi bấm nút "Back" sẽ bị đuổi ra ngoài
-            window.history.replaceState({}, document.title, window.location.pathname);
-        } else {
-            // Nếu không có chìa khóa (Tự gõ link, copy link gửi bạn bè, hoặc bấm Back từ trang khác)
-            // Lập tức đá về trang khóa học giá gốc
-            window.location.replace("courses.html");
-        }
-    </script>
 
     <style>
         :root { --primary: #1877f2; --secondary: #ff3b30; --dark: #0f172a; --light: #f8fafc; --text: #334155; --border: #e2e8f0; }
