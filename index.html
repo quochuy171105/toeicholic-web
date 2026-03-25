@@ -549,9 +549,16 @@
             btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i> Đang xử lý...";
             btn.disabled = true;
 
+            // CÔNG NGHỆ MỚI: ĐÓNG GÓI CHUẨN JSON CHỐNG RỚT DATA
+            let formData = new FormData(this);
+            let jsonData = Object.fromEntries(formData.entries());
+
             fetch(makeWebhookUrl, {
                 method: "POST",
-                body: new FormData(this)
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(jsonData)
             }).then(() => {
                 window.location.href = "thanks.html"; // Chuyển sang trang Cảm ơn/Upsell
             }).catch(() => {
@@ -568,9 +575,16 @@
             btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i>";
             btn.disabled = true;
 
+            // CÔNG NGHỆ MỚI: ĐÓNG GÓI CHUẨN JSON CHỐNG RỚT DATA
+            let formData = new FormData(this);
+            let jsonData = Object.fromEntries(formData.entries());
+
             fetch(makeWebhookUrl, {
                 method: "POST",
-                body: new FormData(this)
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(jsonData)
             }).then(() => {
                 alert("Đăng ký nhận bản tin thành công! Cảm ơn bạn.");
                 btn.innerHTML = "Gửi";

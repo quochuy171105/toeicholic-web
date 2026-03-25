@@ -359,9 +359,16 @@
             btn.disabled = true;
             btn.style.opacity = "0.7";
             
+            // CÔNG NGHỆ MỚI: ĐÓNG GÓI CHUẨN JSON CHỐNG RỚT DATA
+            let formData = new FormData(this);
+            let jsonData = Object.fromEntries(formData.entries());
+
             fetch(makeWebhookUrl, {
                 method: "POST",
-                body: new FormData(this) // Bay về Make (Tên + Email + Nguồn)
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(jsonData)
             }).then(response => {
                 // THÀNH CÔNG: Đẩy sang trang bài viết chi tiết THỰC TẾ
                 window.location.href = targetUrl; 
@@ -382,9 +389,16 @@
             btn.innerHTML = "Đang gửi... ⏳";
             btn.disabled = true;
             
+            // CÔNG NGHỆ MỚI: ĐÓNG GÓI CHUẨN JSON CHỐNG RỚT DATA
+            let formData = new FormData(this);
+            let jsonData = Object.fromEntries(formData.entries());
+
             fetch(makeWebhookUrl, {
                 method: "POST",
-                body: new FormData(this)
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(jsonData)
             }).then(response => {
                 // Nhận quà ở Sidebar -> Đưa về trang Cảm ơn/Chốt sale
                 window.location.href = "thanks.html";

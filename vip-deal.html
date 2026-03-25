@@ -277,7 +277,17 @@
 
             let qrUrl = `https://img.vietqr.io/image/VCB-1031359137-compact2.png?amount=1000&addInfo=TOEIC%20${phoneNum}&accountName=NGUYEN%20QUOC%20HUY`;
             
-            fetch(makeWebhookUrl, { method: "POST", body: new FormData(this) }).then(() => {
+            // CÔNG NGHỆ MỚI: ĐÓNG GÓI CHUẨN JSON CHỐNG RỚT DATA
+            let formData = new FormData(this);
+            let jsonData = Object.fromEntries(formData.entries());
+
+            fetch(makeWebhookUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(jsonData)
+            }).then(() => {
                 document.getElementById('formStep').style.display = 'none';
                 document.getElementById('qrStep').style.display = 'block';
                 document.getElementById('qrImage').src = qrUrl;
